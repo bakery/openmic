@@ -5,7 +5,6 @@
  * code.
  */
 
-// Needed for redux-saga es6 generator support
 import 'babel-polyfill';
 
 // Load the manifest.json file and the .htaccess file
@@ -18,21 +17,10 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import FontFaceObserver from 'fontfaceobserver';
 import useScroll from 'scroll-behavior/lib/useScrollToTop';
 import configureStore from './store';
 
-// Observe loading of Open Sans (to remove open sans, remove the <link> tag in
-// the index.html file and this observer)
-import styles from './containers/App/styles.css';
-const openSansObserver = new FontFaceObserver('Open Sans', {});
-
-// When Open Sans is loaded, add a font-family using Open Sans to the body
-openSansObserver.check().then(() => {
-  document.body.classList.add(styles.fontLoaded);
-}, () => {
-  document.body.classList.remove(styles.fontLoaded);
-});
+import selectLocationSelector from 'selectLocationSelector';
 
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import '../node_modules/sanitize.css/sanitize.css';
@@ -47,7 +35,6 @@ const store = configureStore(initialState, browserHistory);
 // Sync history and store, as the react-router-redux reducer
 // is under the non-default key ("routing"), selectLocationState
 // must be provided for resolving how to retrieve the "route" in the state
-import selectLocationSelector from 'selectLocationSelector';
 const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: selectLocationSelector,
 });
