@@ -1,0 +1,160 @@
+@import "buttons/*.png";
+@include all-buttons-sprites;
+
+.markers-container {	
+	position: absolute;
+	z-index: 2;
+	width: 100%;
+	height: 100%;
+	left: 0; top: 0;
+
+	@include smooth;
+
+	.hidden {
+		opacity: 0;
+	}
+
+	.marker-wrapper {
+		height: 100%;
+		
+		.markers {
+			
+			height: 100%; margin: 0; padding: 0; position: relative;
+
+			&.editable {
+				cursor: url('../images/cursor-mic.png'), auto;
+			}
+			
+			.marker {
+				background-image: none;
+				margin: 0;
+				padding: 0;
+				position: absolute;
+				@include border-radius(30px);
+				-webkit-perspective: 1000; -moz-perspective: 1000;
+				-webkit-backface-visibility: hidden; -moz-backface-visibility: hidden; 
+
+				button {
+					border: none;
+					padding: 0;
+					margin: 0;
+					background-color: transparent;
+					display: block;
+					width: 50px;
+					height: 50px;
+				}
+
+				button:focus {
+					outline: none;
+				}
+
+				.play { display:none;}
+				.pause { display:none;}
+
+
+				&.normal { 
+
+					@include transform(scale(0.5));
+					
+					@extend .buttons-normal;
+
+					&:hover {
+						@include smooth;
+						@include transform(scale(1));
+						background: none;
+
+						.play { 
+							display: block;
+							cursor: pointer;
+							@extend .buttons-playactive;
+						}
+					}
+
+					&.deleting:hover {
+						cursor: no-drop;
+						@extend .buttons-deleting;
+						transition: none;
+						.play {display: none;}
+					}
+						
+				}
+
+					
+
+				&.poof {
+					cursor: default;
+					border-radius: 0;
+					background: {
+						image: url("../images/poof.png");
+						position: 0px -250px;
+						repeat: no-repeat;
+					} 
+				    @include poof;
+				    .play { display: none;} 
+				}
+
+				
+
+				&.discrete {
+					@include transform(scale(0.5));
+					cursor: default;
+					@extend .buttons-normal;
+				}
+
+				&.ready-to-record {
+
+					.record {
+						cursor: pointer;				
+						@extend .buttons-record;
+						&:hover {
+							@extend .buttons-recordactive;
+						}
+					}
+				}
+
+				&.recording {
+					@include pulsating-animation(1s);
+					.record {
+						cursor: pointer;
+						@extend .buttons-stop;
+						&:hover {
+							@extend .buttons-stopactive;
+						}
+					}
+				}
+
+				&.uploading {
+					@include jumping-animation;
+					.record {
+						cursor: wait;
+						@extend .buttons-upload;
+					}
+				}
+
+				&.loading {
+					cursor: wait;
+					@extend .buttons-normal;
+				}
+
+				&.playing {
+					.pause {
+						display: block;
+						cursor: pointer;
+						@extend .buttons-stop;
+						&:hover {
+							@extend .buttons-stopactive;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.countdown {
+	position: relative;
+	top: 15px;
+	font-family: "Poiret";
+	font-size: 16px;
+	font-weight: bold;
+}

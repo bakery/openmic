@@ -1,0 +1,114 @@
+.readonly-notification {
+	margin: 7px;
+	font-size: 14px;
+	color: $very-dark-brown;
+
+	button {
+		cursor: pointer;
+		border: none;
+		background-color: transparent;
+		height: 19px;
+		width: 19px;
+		margin: 0px 4px;
+		background: {
+			image: url('../images/close-button.png');
+			repeat: no-repeat;
+			position: 50% 50%;
+		}
+		vertical-align: top;
+	}
+}
+
+.readonly-notification {
+	&.hidden {
+		display: none;
+	}
+}
+
+.catchphrase {
+	z-index: 1000;
+	position: fixed;
+	top: 160px;
+	right: 100px;
+	color: $orange;
+	font-family: 'DanieleBlack';
+	text-align: center;
+	font-size: 28px;
+	width: 350px;
+}
+
+.arrow {
+	z-index: 1000;
+	position: fixed;
+	height: 170px;
+	width: 128px;
+	top: 0px;
+	right: 55px;
+	background: {
+		image: url('../images/arrow.png');
+		repeat: no-repeat;
+		position: 50% 50%;
+	}
+}
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: black;
+	opacity: 0.7;
+	z-index: 900;
+}
+
+
+.toolbar {
+
+	//background-color: $yellowish;
+	@include box-shadow(0px 2px 3px -1px rgba(51,51,51, 0.5));
+	//position: fixed; left: 0; top: 0; right: 0; z-index: 1000;
+
+	.shelf {
+		height: 120px;	
+	}
+
+	&.collapsed {
+		.shelf {
+			height: 0px;
+		}
+	}
+
+	.handle {
+		background-color: $very-dark-brown;
+		height: 40px;
+
+		h3 {
+			padding: 6px 0;
+			margin: 0;
+			font-size: 20px;
+			font-family: 'Poiret';
+
+			a {
+				color: $blanc-casse;
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+.busy {
+	.loader {
+		height: 22px;
+		width: 22px;
+		position: absolute;
+		top: 9px;
+		right: 14px;
+		background: {
+			image: url('../images/toolbar-loader.gif');
+			repeat: no-repeat;
+			position: 50% 50%;
+		}
+		opacity: 0.8;
+	}
+}

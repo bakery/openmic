@@ -1,0 +1,27 @@
+@font-face {
+  font-family: Parisish;
+  src: url('../fonts/Parisish.ttf');
+}
+
+@font-face {
+  font-family: Poiret;
+  src: url('../fonts/PoiretOne-Regular.ttf');
+}
+
+@font-face {
+  font-family: DanieleBlack;
+  src: url('../fonts/danielbk.ttf');
+}
+
+html {
+    font-family: sans-serif; /* 1 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+    -ms-text-size-adjust: 100%; /* 2 */
+    font-family: "ProximaNova", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+    text-shadow: 0 0 1px rgba(0,0,0,0.3);
+}
+
+.hidden {
+	opacity: 0;
+}

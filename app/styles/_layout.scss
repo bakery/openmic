@@ -1,0 +1,83 @@
+html,body { height: 100%; margin: 0px; padding: 0px; }
+
+a {
+	color: #534733; text-decoration: none; font-weight: bold;  
+}
+
+header {
+	width: 100%;
+	text-align: center;
+	color: $blanc-casse;
+}
+
+.branding {
+	margin: auto;
+
+	h1 {
+		display: inline-block;
+		margin: 25px 8px;
+		padding: 0;
+		font-family: 'Poiret';
+		color: $dark-brown;
+		font-size: 62px;
+		@include text-shadow(0 1px 3px rgba(0,0,0,0.4));
+	}
+
+	.logo {
+		position: relative;
+		top: 6px;
+		width: 60px;
+		height: 60px;
+		display: inline-block;
+		background : {
+			image: url('../images/mic-icon.png');
+			repeat: no-repeat;
+			position: 50% 50%;
+		}
+	}
+
+	.tagline {
+		font-size: 14px;
+		font-weight: 300;
+		position: relative;
+		top: -50px;
+		left: -11px;
+	}
+}
+
+body {
+	color: $dark-brown;
+	background-color: $blanc-casse;
+}
+
+.editor, .browser {
+	position: relative;
+	text-align: center;
+
+	.image-container-wrapper{
+		position: relative;
+		display: inline-block;
+	}
+}
+
+.browser {
+	margin: 0 20px 40px 20px;
+}
+
+footer {
+	@include gentle-fadein; opacity: 0;
+	text-align: center; padding: 2em;
+	font-size: 12px;
+	ul {
+		padding: 0; margin: 0;
+		list-style-type: none;
+		li {
+			margin-right: 1em;
+			display: inline;
+
+			a {
+				font-weight: lighter;
+			}
+		}
+	}
+}

@@ -1,0 +1,50 @@
+.sharing-bar {
+	@include gentle-fadein(2s);
+	margin: 0;
+	padding: 0;
+	opacity: 0;
+
+	li {
+		display: inline-block;
+		margin-right: 12px;
+		font-size: 14px;
+	}
+}
+
+.share-url {
+	cursor: text;
+	background-color: $blanc-casse;
+	color: $very-dark-brown;
+	@include border-radius(2px);
+	//font-family: HelveticaNeue;
+	border: 1px solid $very-dark-brown;
+	padding: 4px 6px;
+	display: inline-block;
+	width: 220px;
+}
+
+.twitter {
+	display: block;
+	width: 22px;
+	height: 18px;
+	background: {
+		image: url('../images/twitter.png');
+		repeat: no-repeat;
+		position: 50% 50%;
+	}
+	position: relative;
+	top: 7px;
+}
+
+.facebook {
+	display: block;
+	width: 11px;
+	height: 20px;
+	background: {
+		image: url('../images/facebook.png');
+		repeat: no-repeat;
+		position: 50% 50%;
+	}
+	position: relative;
+	top: 6px;
+}

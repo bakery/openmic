@@ -1,0 +1,16 @@
+.recording-indicator {
+
+	position: fixed; z-index: 10000;
+	top: 7px;
+	left: 20px;
+
+	color: $orange;
+	font-family: Poiret;
+	text-align: left;
+	font-weight: bold;
+	font-size: 22px;
+
+	&.hidden{
+		opacity: 0;
+	} 
+}
