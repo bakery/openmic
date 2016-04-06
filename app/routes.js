@@ -15,7 +15,15 @@ export default function createRoutes(store) { // eslint-disable-line
         }, 'HomePage');
       },
     }, {
+      path: '/editor',
+      getComponent: function get(location, cb) {
+        require.ensure([], (require) => {
+          cb(null, require('Editor').default);
+        }, 'Editor');
+      },
+    }, {
       path: '*',
+
       getComponent: function get(location, cb) {
         require.ensure([], (require) => {
           cb(null, require('NotFoundPage').default);

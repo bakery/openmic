@@ -6,11 +6,12 @@
 
 import React from 'react';
 
-import styles from './styles.css';
+// import styles from './styles.css';
 
 function Editor() {
   return (
-    <div className={ styles.editor }>
+    <div>
+      editor is here
     </div>
   );
 }
