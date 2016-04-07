@@ -38,10 +38,12 @@ function routeReducer(state = routeInitialState, action) {
  * Creates the main reducer with the asynchronously loaded ones
  */
 import imageSelectorReducer from 'ImageSelector/reducer';
+import markerOverlayReducer from 'MarkerOverlay/reducer';
 export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     imageSelector: imageSelectorReducer,
+    markerOverlay: markerOverlayReducer,
     ...asyncReducers,
   });
 }
