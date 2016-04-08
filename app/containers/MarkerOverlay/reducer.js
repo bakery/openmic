@@ -12,6 +12,7 @@ import {
   AUDIO_RECORDING_COMPLETE,
   PLAY_AUDIO,
   PAUSE_AUDIO,
+  AUDIO_PLAYBACK_COMPLETE,
 } from './constants';
 import _ from 'underscore';
 
@@ -53,6 +54,16 @@ function markerOverlayReducer(state = initialState, action) {
       return state.updateIn(['items', action.payload.markerId], (marker) => {
         return marker.set('state', MARKER_STATE.NORMAL);
       });
+    case AUDIO_PLAYBACK_COMPLETE:
+      const currentlyPlaying = state.get('items').find(
+        (i) => i.get('state') === MARKER_STATE.PLAYING
+      );
+      if (currentlyPlaying) {
+        return state.updateIn(['items', currentlyPlaying.get('id')], (marker) => {
+          return marker.set('state', MARKER_STATE.NORMAL);
+        });
+      }
+      return state;
     default:
       return state;
   }

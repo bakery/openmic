@@ -12,6 +12,7 @@ export const AUDIO_RECORDING_COMPLETE = 'app/MarkerOverlay/AUDIO_RECORDING_COMPL
 export const AUDIO_RECORDING_FAILED = 'app/MarkerOverlay/AUDIO_RECORDING_FAILED';
 export const PLAY_AUDIO = 'app/MarkerOverlay/PLAY_AUDIO';
 export const PAUSE_AUDIO = 'app/MarkerOverlay/PAUSE_AUDIO';
+export const AUDIO_PLAYBACK_COMPLETE = 'app/MarkerOverlay/AUDIO_PLAYBACK_COMPLETE';
 export const MARKER_STATE = {
   NORMAL: 'NORMAL',
   RECORDING: 'RECORDING',
