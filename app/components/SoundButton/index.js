@@ -5,9 +5,6 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
-
-// import styles from './styles.css';
 
 class SoundButton extends React.Component {
   render() {
@@ -22,20 +19,17 @@ class SoundButton extends React.Component {
 
     return (
       <div className="button-container">
-        <button className="record"></button>
+        <button onClick={ this.props.onRecord } className="record"></button>
       </div>
     );
   }
 }
 
-function mapStateToProps() {
-  return {};
-}
+SoundButton.propTypes = {
+  // className: React.PropTypes.string,
+  // handleRoute: React.PropTypes.func,
+  // href: React.PropTypes.string,
+  onRecord: React.PropTypes.func.isRequired,
+};
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SoundButton);
+export default SoundButton;

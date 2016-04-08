@@ -1,3 +1,3 @@
-const markersSelector = (state) => state.get('markerOverlay');
+const markersSelector = (state) => state.get('markers');
 
 export default markersSelector;

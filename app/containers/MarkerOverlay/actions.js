@@ -6,6 +6,7 @@
 
 import {
   ADD_MARKER,
+  REQUEST_AUDIO_RECORDING,
 } from './constants';
 
 export function addMarker(marker) {
@@ -14,6 +15,15 @@ export function addMarker(marker) {
     type: ADD_MARKER,
     payload: {
       marker,
+    },
+  };
+}
+
+export function requestAudioRecording(markerId) {
+  return {
+    type: REQUEST_AUDIO_RECORDING,
+    payload: {
+      markerId,
     },
   };
 }

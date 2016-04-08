@@ -1,6 +1,6 @@
 /*
  *
- * SoundButton reducer
+ * Audio reducer
  *
  */
 
@@ -11,7 +11,7 @@ import {
 
 const initialState = fromJS({});
 
-function soundButtonReducer(state = initialState, action) {
+function audioReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
@@ -20,4 +20,4 @@ function soundButtonReducer(state = initialState, action) {
   }
 }
 
-export default soundButtonReducer;
+export default audioReducer;

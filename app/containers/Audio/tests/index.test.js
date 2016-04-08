@@ -1,9 +1,9 @@
-import SoundButton from '../index';
+import Audio from '../index';
 
 import expect from 'expect';
 import { shallow } from 'enzyme';
 import React from 'react';
 
-describe('<SoundButton />', () => {
+describe('<Audio />', () => {
 
 });

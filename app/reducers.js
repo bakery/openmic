@@ -39,13 +39,11 @@ function routeReducer(state = routeInitialState, action) {
  */
 import imageSelectorReducer from 'ImageSelector/reducer';
 import markerOverlayReducer from 'MarkerOverlay/reducer';
-import soundButtonReducer from 'SoundButton/reducer';
 export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     imageSelector: imageSelectorReducer,
-    markerOverlay: markerOverlayReducer,
-    soundButton: soundButtonReducer,
+    markers: markerOverlayReducer,
     ...asyncReducers,
   });
 }

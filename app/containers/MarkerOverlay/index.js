@@ -22,7 +22,9 @@ class MarkerOverlay extends React.Component {
         <div className="marker-wrapper" onClick={this.props.onAddMarker}>
           <div className="markers">
             {
-              this.props.markers.map((m) => <Marker x={m.x} y={m.y} key={m.id} />)
+              this.props.markers.map((m) => {
+                return <Marker x={m.get('x')} y={m.get('y')} key={m.get('id')} id={m.get('id')} />;
+              })
             }
           </div>
         </div>
@@ -49,5 +51,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(createSelector(markersSelector,
-  (markerOverlay) => ({ markers: markerOverlay.get('markers') })
+  (markerOverlay) => ({ markers: markerOverlay.get('items') })
 ), mapDispatchToProps)(MarkerOverlay);

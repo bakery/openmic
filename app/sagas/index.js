@@ -3,8 +3,10 @@
  */
 import { uploadImage } from './uploadImage.saga';
 import { routing } from './routing.saga';
+import { recordAudio } from './recordAudio.saga';
 
 export default [
   uploadImage,
   routing,
+  recordAudio,
 ];

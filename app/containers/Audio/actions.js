@@ -1,6 +1,6 @@
 /*
  *
- * SoundButton actions
+ * Audio actions
  *
  */
 
