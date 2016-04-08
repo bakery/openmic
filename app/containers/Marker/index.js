@@ -7,14 +7,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import SoundButton from 'SoundButton';
-import { requestAudioRecording } from 'MarkerOverlay/actions';
+// import SoundButton from 'SoundButton';
+import RecordButton from 'RecordButton';
+import { requestAudioRecording, stopAudioRecording } from 'MarkerOverlay/actions';
 import { MARKER_STATE } from 'MarkerOverlay/constants';
 
 class Marker extends React.Component {
-  onRecord = (e) => {
-    e.stopPropagation();
-    this.props.onRecord(this.props.id);
+  onRecord = () => {
+    this.props.record(this.props.id);
+  };
+
+  onStopRecording = () => {
+    this.props.stopRecording(this.props.id);
   };
 
   generateClassName = () => {
@@ -46,9 +50,11 @@ class Marker extends React.Component {
       width: markerWidth,
       height: markerHeight,
     };
+    const isRecording = this.props.state === MARKER_STATE.RECORDING;
+
     return (
       <div onClick={this.onClick} className={this.generateClassName()} style={styles}>
-        <SoundButton sound={this.props.sound} onRecord={this.onRecord} />
+        <RecordButton recording={isRecording} onRecord={this.onRecord} onStopRecording={this.onStopRecording}/>
         <div className="countdown"></div>
       </div>
     );
@@ -58,7 +64,8 @@ class Marker extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onRecord: (markerId) => dispatch(requestAudioRecording(markerId)),
+    record: (markerId) => dispatch(requestAudioRecording(markerId)),
+    stopRecording: (markerId) => dispatch(stopAudioRecording(markerId)),
   };
 }
 

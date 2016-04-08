@@ -9,6 +9,7 @@ import {
   ADD_MARKER,
   MARKER_STATE,
   AUDIO_RECORDING_STARTED,
+  AUDIO_RECORDING_COMPLETE,
 } from './constants';
 import _ from 'underscore';
 
@@ -34,6 +35,10 @@ function markerOverlayReducer(state = initialState, action) {
     case AUDIO_RECORDING_STARTED:
       return state.updateIn(['items', action.payload.markerId], (marker) => {
         return marker.set('state', MARKER_STATE.RECORDING);
+      });
+    case AUDIO_RECORDING_COMPLETE:
+      return state.updateIn(['items', action.payload.markerId], (marker) => {
+        return marker.set('state', MARKER_STATE.NORMAL);
       });
     default:
       return state;
