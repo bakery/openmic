@@ -34,8 +34,8 @@ class AudioRecorder {
   }
 
   startRecording() {
-    console.error('start inside this', this);
     return new Promise((resolve, reject) => {
+      this.recordedBlobs = [];
       if (this.isReady) {
         this.__record();
         resolve();
@@ -63,9 +63,13 @@ class AudioRecorder {
   }
 
   stopRecording() {
-    if (this.mediaRecorder) {
-      this.mediaRecorder.stop();
-    }
+    return new Promise((resolve) => {
+      if (this.mediaRecorder) {
+        this.mediaRecorder.stop();
+      }
+      this.saveRecording();
+      resolve();
+    });
   }
 
   saveRecording() {
