@@ -7,11 +7,21 @@
 import React from 'react';
 // import styles from './marker.css';
 import SoundButton from 'SoundButton';
+import AudioRecorder from 'audio-recorder';
 
 class Marker extends React.Component {
   onClick = (e) => {
     e.stopPropagation();
     console.error('marker is clicked');
+    const recorder = new AudioRecorder();
+    recorder.initAudio();
+    setTimeout(() => {
+      recorder.startRecording();
+      setTimeout(() => {
+        recorder.stopRecording();
+        recorder.saveRecording();
+      }, 5000);
+    }, 3000);
   };
 
   render() {

@@ -57,6 +57,7 @@ module.exports = (options) => ({
       'selectors',
       'sagas',
       'assets',
+      'lib',
       'node_modules',
     ],
     extensions: [
