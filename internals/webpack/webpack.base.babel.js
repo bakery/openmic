@@ -32,6 +32,9 @@ module.exports = (options) => ({
       include: /node_modules/,
       loaders: ['style-loader', 'css-loader'],
     }, {
+      test: /\.scss$/,
+      loaders: ['style-loader', 'css-loader', 'sass-loader'],
+    }, {
       test: /\.jpe?g$|\.gif$|\.png$/i,
       loader: 'url-loader?limit=10000',
     }, {

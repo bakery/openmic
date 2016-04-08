@@ -1,6 +1,3 @@
-@import "buttons/*.png";
-@include all-buttons-sprites;
-
 .markers-container {	
 	position: absolute;
 	z-index: 2;
@@ -55,8 +52,7 @@
 				&.normal { 
 
 					@include transform(scale(0.5));
-					
-					@extend .buttons-normal;
+					background: url('../images/buttons/normal.png') no-repeat;
 
 					&:hover {
 						@include smooth;
@@ -66,13 +62,13 @@
 						.play { 
 							display: block;
 							cursor: pointer;
-							@extend .buttons-playactive;
+							background: url('../images/buttons/playactive.png') no-repeat;
 						}
 					}
 
 					&.deleting:hover {
 						cursor: no-drop;
-						@extend .buttons-deleting;
+						background: url('../images/buttons/deleting.png') no-repeat;
 						transition: none;
 						.play {display: none;}
 					}
@@ -105,9 +101,9 @@
 
 					.record {
 						cursor: pointer;				
-						@extend .buttons-record;
+						background: url('../images/buttons/record.png') no-repeat;
 						&:hover {
-							@extend .buttons-recordactive;
+							background: url('../images/buttons/recordactive.png') no-repeat;
 						}
 					}
 				}
@@ -116,9 +112,9 @@
 					@include pulsating-animation(1s);
 					.record {
 						cursor: pointer;
-						@extend .buttons-stop;
+						background: url('../images/buttons/stop.png') no-repeat;
 						&:hover {
-							@extend .buttons-stopactive;
+							background: url('../images/buttons/stopactive.png') no-repeat;
 						}
 					}
 				}
@@ -127,22 +123,22 @@
 					@include jumping-animation;
 					.record {
 						cursor: wait;
-						@extend .buttons-upload;
+						background: url('../images/buttons/upload.png') no-repeat;
 					}
 				}
 
 				&.loading {
 					cursor: wait;
-					@extend .buttons-normal;
+					background: url('../images/buttons/normal.png') no-repeat;
 				}
 
 				&.playing {
 					.pause {
 						display: block;
 						cursor: pointer;
-						@extend .buttons-stop;
+						background: url('../images/buttons/stop.png') no-repeat;
 						&:hover {
-							@extend .buttons-stopactive;
+							background: url('../images/buttons/stopactive.png') no-repeat;
 						}
 					}
 				}
