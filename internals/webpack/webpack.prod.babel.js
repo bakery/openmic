@@ -26,7 +26,8 @@ module.exports = require('./webpack.base.babel')({
   // of the CSS being in the JS and injected as a style tag
   cssLoaders: ExtractTextPlugin.extract(
     'style-loader',
-    'css-loader?modules&importLoaders=1!postcss-loader'
+    'css-loader?modules&importLoaders=1!postcss-loader',
+    'sass-loader',
   ),
 
   // In production, we minify our CSS with cssnano
