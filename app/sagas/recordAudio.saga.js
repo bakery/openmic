@@ -27,12 +27,13 @@ function* doRecordAudio(action) {
     }
 
     if (action.type === STOP_AUDIO_RECORDING) {
-      yield apply(theRecorder, theRecorder.stopRecording);
+      const sound = yield apply(theRecorder, theRecorder.stopRecording);
       console.error('recording stopped ok');
       yield put({
         type: AUDIO_RECORDING_COMPLETE,
         payload: {
           markerId: action.payload.markerId,
+          sound,
         },
       });
     }

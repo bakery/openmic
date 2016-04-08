@@ -38,7 +38,10 @@ function markerOverlayReducer(state = initialState, action) {
       });
     case AUDIO_RECORDING_COMPLETE:
       return state.updateIn(['items', action.payload.markerId], (marker) => {
-        return marker.set('state', MARKER_STATE.NORMAL);
+        return marker.withMutations((m) => {
+          m.set('state', MARKER_STATE.NORMAL);
+          m.set('sound', action.payload.sound);
+        });
       });
     default:
       return state;

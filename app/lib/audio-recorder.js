@@ -67,16 +67,16 @@ class AudioRecorder {
       if (this.mediaRecorder) {
         this.mediaRecorder.stop();
       }
-      this.saveRecording();
-      resolve();
+      resolve(this.saveRecording());
     });
   }
 
   saveRecording() {
     const blob = new Blob(this.recordedBlobs, { type: 'audio/webm' });
-    const audioPlayer = document.querySelector('audio');
-    audioPlayer.src = window.URL.createObjectURL(blob);
-    audioPlayer.play();
+    return window.URL.createObjectURL(blob);
+    // const audioPlayer = document.querySelector('audio');
+    // audioPlayer.src = window.URL.createObjectURL(blob);
+    // audioPlayer.play();
   }
 }
 
