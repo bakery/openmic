@@ -10,10 +10,12 @@
 	width: 350px;
 	cursor: pointer;
 
-	background: {
+    &.drop {
+        background: {
             image: url('../images/microphone.png');
             repeat: no-repeat;
             position: 50% 170px;
+        }
     }
     
     h3 {
@@ -23,15 +25,27 @@
     	margin: 40px 20px;
     }
 
-    &.loading {
-	    background:{
-	            image: url('../images/loading.gif');
-	            repeat: no-repeat;
-	            position: 50% 75%;
-	            size: 50%;
-	    }
+    .loading {
+        height: 175px;
+        width: 175px;
+        margin: auto;
+	    background: url('../images/rotating-vinyl.png') no-repeat;
+        background-size: cover;
 	    cursor: wait;
+        @include rotating; 
 	}
+
+    .shadow {
+        height: 25px;
+        width: 175px;
+        margin: auto;
+        background: {
+            image: url('../images/shadow.png');
+            repeat: no-repeat;
+            size: 100% auto;
+            position: 100% 100%;
+        }
+    }
 }
 
 

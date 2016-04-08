@@ -12,8 +12,20 @@
 	-moz-animation: jump 1s infinite;
 }
 
+@mixin rotating {
+    -webkit-animation: rotating 2s linear infinite;
+}
 
 /** webkit **/
+
+@-webkit-keyframes rotating {
+    from{
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
+}
 
 @-webkit-keyframes pulse {
 	0% {

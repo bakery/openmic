@@ -19,13 +19,17 @@ class ImageSelector extends React.Component {
     console.error('status is', this.props.status);
     if (this.props.status === UPLOADER_STATUS.UPLOADING) {
       return (
-        <div id="dropzone" className="loading"></div>
+        <div id="dropzone">
+          <h3 className="dropMessage">Uploading...</h3>
+          <div className="loading"></div>
+          <div className="shadow"></div>
+        </div>
       );
     }
 
     return (
       <Dropzone onDrop={this.props.onUploadFile} multiple={false} accept="image/*" style={{}}>
-        <div id="dropzone">
+        <div id="dropzone" className="drop">
           <h3 className="dropmessage">Drop an image<br />and pick up the mic</h3>
         </div>
       </Dropzone>
