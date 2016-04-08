@@ -7,9 +7,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-// import SoundButton from 'SoundButton';
 import RecordButton from 'RecordButton';
-import { requestAudioRecording, stopAudioRecording } from 'MarkerOverlay/actions';
+import PlayButton from 'PlayButton';
+import {
+  requestAudioRecording,
+  stopAudioRecording,
+  playSound,
+  pauseSound,
+} from 'MarkerOverlay/actions';
 import { MARKER_STATE } from 'MarkerOverlay/constants';
 
 class Marker extends React.Component {
@@ -21,18 +26,39 @@ class Marker extends React.Component {
     this.props.stopRecording(this.props.id);
   };
 
+  onPlay = () => {
+    this.props.play(this.props.id, this.props.sound);
+  };
+
+  onPause = () => {
+    this.props.pause(this.props.id, this.props.sound);
+  };
+
+  getMarkerButton = () => {
+    if (this.props.sound) {
+      return <PlayButton sound={this.props.sound} onPlay={this.onPlay} onPause={this.onPause} />;
+    }
+
+    const isRecording = this.props.state === MARKER_STATE.RECORDING;
+    return <RecordButton recording={isRecording} onRecord={this.onRecord} onStopRecording={this.onStopRecording} />;
+  };
+
   generateClassName = () => {
     const base = 'marker';
-
-    if (this.props.sound) {
-      return `${base} normal`;
-    }
 
     if (this.props.state === MARKER_STATE.RECORDING) {
       return `${base} recording`;
     }
 
-    return `${base} ready-to-record`;
+    if (this.props.state === MARKER_STATE.PLAYING) {
+      return `${base} playing`;
+    }
+
+    if (this.props.sound) {
+      return `${base} normal`;
+    }
+
+    return `marker ${base} ready-to-record`;
   };
 
   render() {
@@ -50,11 +76,10 @@ class Marker extends React.Component {
       width: markerWidth,
       height: markerHeight,
     };
-    const isRecording = this.props.state === MARKER_STATE.RECORDING;
 
     return (
       <div onClick={this.onClick} className={this.generateClassName()} style={styles}>
-        <RecordButton recording={isRecording} onRecord={this.onRecord} onStopRecording={this.onStopRecording}/>
+        {this.getMarkerButton()}
         <div className="countdown"></div>
       </div>
     );
@@ -66,6 +91,8 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     record: (markerId) => dispatch(requestAudioRecording(markerId)),
     stopRecording: (markerId) => dispatch(stopAudioRecording(markerId)),
+    play: (markerId, sound) => dispatch(playSound(markerId, sound)),
+    pause: (markerId, sound) => dispatch(pauseSound(markerId, sound)),
   };
 }
 
@@ -76,5 +103,6 @@ export default connect(createSelector(
   },
   (marker) => ({
     state: marker.get('state'),
+    sound: marker.get('sound'),
   })
 ), mapDispatchToProps)(Marker);
