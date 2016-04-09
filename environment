@@ -1,0 +1,7 @@
+# Env vars required
+
+AWS_KEY
+AWS_SECRET
+AWS_REGION
+S3_BUCKET_NAME
+  

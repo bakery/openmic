@@ -7,8 +7,8 @@ import {
   IMAGE_UPLOAD_COMPLETE,
 } from '../containers/ImageSelector/constants';
 
-function* navigateToEditor() {
-  browserHistory.push('/editor');
+function* navigateToEditor(action) {
+  browserHistory.push('/editor?image=' + encodeURIComponent(action.payload));
 }
 
 export function* routing() {
