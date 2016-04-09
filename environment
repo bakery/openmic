@@ -1,7 +1,7 @@
 # Env vars required
 
 AWS_KEY
-AWS_SECRET 'LW0wjjdAh69LMbtmsadnkTyN1/g62lHQKN/rkLW3',
+AWS_SECRET
 AWS_REGION
 S3_BUCKET_NAME
   
