@@ -72,8 +72,11 @@ class AudioRecorder {
   }
 
   saveRecording() {
-    const blob = new Blob(this.recordedBlobs, { type: 'audio/webm' });
-    return window.URL.createObjectURL(blob);
+    const file = new Blob(this.recordedBlobs, { type: 'audio/webm' });
+    return {
+      file,
+      url: window.URL.createObjectURL(file),
+    };
     // const audioPlayer = document.querySelector('audio');
     // audioPlayer.src = window.URL.createObjectURL(blob);
     // audioPlayer.play();

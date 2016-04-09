@@ -33,7 +33,8 @@ function* doRecordAudio(action) {
         type: AUDIO_RECORDING_COMPLETE,
         payload: {
           markerId: action.payload.markerId,
-          sound,
+          sound: sound.url,
+          file: sound.file,
         },
       });
     }
