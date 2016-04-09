@@ -7,6 +7,7 @@
 import { fromJS } from 'immutable';
 import {
   ADD_MARKER,
+  ADD_MARKERS,
   MARKER_STATE,
   AUDIO_RECORDING_STARTED,
   AUDIO_RECORDING_COMPLETE,
@@ -35,6 +36,14 @@ function markerOverlayReducer(state = initialState, action) {
         return items.set(action.payload.marker.id,
           fromJS(createMarker(action.payload.marker))
         );
+      });
+    case ADD_MARKERS:
+      return state.withMutations((s) => {
+        (action.payload.markers || []).forEach((marker) => {
+          s.updateIn(['items'], (items) => {
+            return items.set(marker.id, fromJS(createMarker(marker)));
+          });
+        });
       });
     case AUDIO_RECORDING_STARTED:
       return state.updateIn(['items', action.payload.markerId], (marker) => {

@@ -5,6 +5,7 @@
  */
 
 export const ADD_MARKER = 'app/MarkerOverlay/ADD_MARKER';
+export const ADD_MARKERS = 'app/MarkerOverlay/ADD_MARKERS';
 export const REQUEST_AUDIO_RECORDING = 'app/MarkerOverlay/REQUEST_AUDIO_RECORDING';
 export const STOP_AUDIO_RECORDING = 'app/MarkerOverlay/STOP_AUDIO_RECORDING';
 export const AUDIO_RECORDING_STARTED = 'app/MarkerOverlay/AUDIO_RECORDING_STARTED';

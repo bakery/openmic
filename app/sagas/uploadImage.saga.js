@@ -4,9 +4,9 @@ import { takeEvery } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 import {
   IMAGE_UPLOAD_REQUESTED,
-  // IMAGE_UPLOAD_FAILED,
   IMAGE_UPLOAD_COMPLETE,
-} from '../containers/ImageSelector/constants';
+} from 'ImageSelector/constants';
+import { CREATE_PROJECT } from 'Project/constants';
 import uploader from 'uploader';
 
 // TODO: replace this with an actual file upload
@@ -18,6 +18,7 @@ function* doUploadImage(action) {
   }, action.payload);
 
   yield put({ type: IMAGE_UPLOAD_COMPLETE, payload: uploadedFile });
+  yield put({ type: CREATE_PROJECT, payload: { image: uploadedFile } });
 }
 
 export function* uploadImage() {
