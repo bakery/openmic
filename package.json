@@ -12,6 +12,7 @@
     "fontfaceobserver": "^1.6.3",
     "history": "^2.0.0",
     "immutable": "^3.7.6",
+    "parse": "^1.8.1",
     "postcss-sprites": "^3.1.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",

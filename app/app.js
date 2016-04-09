@@ -49,6 +49,13 @@ const rootRoute = {
   childRoutes: createRoutes(store),
 };
 
+// Init Parse
+import Parse from 'parse';
+Parse.initialize(
+  'Px3TnZvihAkXF02Ed5jyt50lsopW99DBdHbxEKDN',
+  'SJ1J3FNa1rmiIXJtiv7hGUjp1mQT0IMyIpfLw7ms'
+);
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={useScroll(() => history)()} routes={rootRoute} />
