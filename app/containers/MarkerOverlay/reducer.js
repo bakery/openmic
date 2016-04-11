@@ -46,28 +46,28 @@ function markerOverlayReducer(state = initialState, action) {
         });
       });
     case AUDIO_RECORDING_STARTED:
-      return state.updateIn(['items', action.payload.markerId], (marker) => {
+      return state.updateIn(['items', action.payload.marker.id], (marker) => {
         return marker.set('state', MARKER_STATE.RECORDING);
       });
     case AUDIO_RECORDING_COMPLETE:
-      return state.updateIn(['items', action.payload.markerId], (marker) => {
+      return state.updateIn(['items', action.payload.marker.id], (marker) => {
         return marker.withMutations((m) => {
           m.set('state', MARKER_STATE.NORMAL);
           m.set('sound', action.payload.sound);
         });
       });
     case AUDIO_RECORDING_UPLOADED:
-      return state.updateIn(['items', action.payload.markerId], (marker) => {
+      return state.updateIn(['items', action.payload.marker.id], (marker) => {
         return marker.withMutations((m) => {
           m.set('sound', action.payload.sound);
         });
       });
     case PLAY_AUDIO:
-      return state.updateIn(['items', action.payload.markerId], (marker) => {
+      return state.updateIn(['items', action.payload.marker.id], (marker) => {
         return marker.set('state', MARKER_STATE.PLAYING);
       });
     case PAUSE_AUDIO:
-      return state.updateIn(['items', action.payload.markerId], (marker) => {
+      return state.updateIn(['items', action.payload.marker.id], (marker) => {
         return marker.set('state', MARKER_STATE.NORMAL);
       });
     case AUDIO_PLAYBACK_COMPLETE:

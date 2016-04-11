@@ -7,6 +7,7 @@ import { playback } from './playback.saga';
 import { uploadAudio } from './uploadAudio.saga';
 import { getProject } from './getProject.saga';
 import { createProject } from './createProject.saga';
+import { syncMarkers } from './syncMarkers.saga';
 
 export default [
   uploadImage,
@@ -15,4 +16,5 @@ export default [
   uploadAudio,
   getProject,
   createProject,
+  syncMarkers,
 ];

@@ -9,21 +9,27 @@ import { connect } from 'react-redux';
 
 import { createSelector } from 'reselect';
 import markersSelector from 'markersSelector';
+import projectSelector from 'projectSelector';
 import { addMarker } from './actions';
 import Marker from 'Marker';
 
 // import styles from './styles.css';
 
 class MarkerOverlay extends React.Component {
+
+  onAddMarker = (e) => {
+    this.props.addMarker(e, this.props.project.id);
+  };
+
   render() {
     console.error('markers are', this.props.markers);
     return (
       <div className="markers-container">
-        <div className="marker-wrapper" onClick={this.props.onAddMarker}>
+        <div className="marker-wrapper" onClick={this.onAddMarker}>
           <div className="markers">
             {
               this.props.markers.map((m) => {
-                return <Marker x={m.get('x')} y={m.get('y')} key={m.get('id')} id={m.get('id')} />;
+                return <Marker marker={m} key={m.get('id')} />;
               })
             }
           </div>
@@ -36,12 +42,13 @@ class MarkerOverlay extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onAddMarker: (e) => {
+    addMarker: (e, projectId) => {
       const relX = e.pageX - e.target.getBoundingClientRect().left;
       const relY = e.pageY - e.target.getBoundingClientRect().top;
       console.log('position', relX, relY);
 
       dispatch(addMarker({
+        projectId,
         id: Math.floor(Math.random() * 1000),
         x: relX / e.target.parentElement.clientWidth,
         y: relY / e.target.parentElement.clientHeight,
@@ -50,6 +57,11 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(createSelector(markersSelector,
-  (markerOverlay) => ({ markers: markerOverlay.get('items') })
+export default connect(createSelector([markersSelector, projectSelector],
+  (markers, project) => {
+    return {
+      markers: markers.get('items'),
+      project: project.get('project'),
+    };
+  },
 ), mapDispatchToProps)(MarkerOverlay);

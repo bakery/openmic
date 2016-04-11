@@ -19,7 +19,7 @@ function* doUploadAudio(action) {
   yield put({
     type: AUDIO_RECORDING_UPLOADED,
     payload: {
-      markerId: action.payload.markerId,
+      marker: action.payload.marker,
       sound: uploadedFile,
     },
   });
