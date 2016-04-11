@@ -42,7 +42,7 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     onUploadFile: (files) => {
       console.error('uploading', files);
-      dispatch(uploadImage(files));
+      dispatch(uploadImage(files[0]));
     },
   };
 }

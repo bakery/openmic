@@ -21,7 +21,7 @@ function* doRecordAudio(action) {
       yield put({
         type: AUDIO_RECORDING_STARTED,
         payload: {
-          markerId: action.payload.markerId,
+          marker: action.payload.marker,
         },
       });
     }
@@ -32,8 +32,9 @@ function* doRecordAudio(action) {
       yield put({
         type: AUDIO_RECORDING_COMPLETE,
         payload: {
-          markerId: action.payload.markerId,
-          sound,
+          marker: action.payload.marker,
+          sound: sound.url,
+          file: sound.file,
         },
       });
     }
@@ -43,7 +44,7 @@ function* doRecordAudio(action) {
       type: AUDIO_RECORDING_FAILED,
       payload: {
         error: e,
-        markerId: action.payload.markerId,
+        markerId: action.payload.marker.id,
       },
     });
   }

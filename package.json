@@ -12,6 +12,7 @@
     "fontfaceobserver": "^1.6.3",
     "history": "^2.0.0",
     "immutable": "^3.7.6",
+    "parse": "^1.8.1",
     "postcss-sprites": "^3.1.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
@@ -24,8 +25,10 @@
     "redux-immutable": "^3.0.6",
     "redux-saga": "^0.9.5",
     "reselect": "^2.2.1",
+    "s3-browser-direct-upload": "^0.1.2",
     "sanitize.css": "^3.3.0",
-    "scroll-behavior": "^0.3.2"
+    "scroll-behavior": "^0.3.2",
+    "whatwg-fetch": "^0.11.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.1",

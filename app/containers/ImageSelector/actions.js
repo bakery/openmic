@@ -16,9 +16,15 @@ export function defaultAction() {
 }
 
 export function uploadImage(file) {
-  console.error('doing it');
+  const fileExtension = file.type.split('image/')[1];
+  const fileName = `${(new Date()).getTime()}.${fileExtension}`;
+
   return {
     type: IMAGE_UPLOAD_REQUESTED,
-    payload: file,
+    payload: {
+      file,
+      fileName,
+      fileExtension,
+    },
   };
 }

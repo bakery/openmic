@@ -14,7 +14,7 @@ const thePlayer = new Playback();
 function* doPlay(action) {
   try {
     if (action.type === PLAY_AUDIO) {
-      yield apply(thePlayer, thePlayer.play, [action.payload.sound]);
+      yield apply(thePlayer, thePlayer.play, [action.payload.marker.sound]);
       yield put({
         type: AUDIO_PLAYBACK_COMPLETE,
       });

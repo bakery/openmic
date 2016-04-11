@@ -13,7 +13,7 @@ class ImageViewer extends React.Component {
     return (
       <div className="image-container">
         <div className="image-viewer">
-          <img width="100%" className="the-image" src="http://images6.fanpop.com/image/photos/33400000/Cute-Cats-cats-33440930-1280-800.jpg" />
+          <img width="100%" className="the-image" src={this.props.url} />
         </div>
       </div>
     );

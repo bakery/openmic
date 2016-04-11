@@ -22,40 +22,38 @@ export function addMarker(marker) {
   };
 }
 
-export function requestAudioRecording(markerId) {
+export function requestAudioRecording(marker) {
   return {
     type: REQUEST_AUDIO_RECORDING,
     payload: {
-      markerId,
+      marker,
     },
   };
 }
 
-export function stopAudioRecording(markerId) {
+export function stopAudioRecording(marker) {
   return {
     type: STOP_AUDIO_RECORDING,
     payload: {
-      markerId,
+      marker,
     },
   };
 }
 
-export function playSound(markerId, sound) {
+export function playSound(marker) {
   return {
     type: PLAY_AUDIO,
     payload: {
-      markerId,
-      sound,
+      marker,
     },
   };
 }
 
-export function pauseSound(markerId, sound) {
+export function pauseSound(marker) {
   return {
     type: PAUSE_AUDIO,
     payload: {
-      markerId,
-      sound,
+      marker,
     },
   };
 }

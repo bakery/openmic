@@ -4,23 +4,21 @@ import { takeEvery } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 import {
   IMAGE_UPLOAD_REQUESTED,
-  // IMAGE_UPLOAD_FAILED,
   IMAGE_UPLOAD_COMPLETE,
-} from '../containers/ImageSelector/constants';
+} from 'ImageSelector/constants';
+import { CREATE_PROJECT } from 'Project/constants';
+import uploader from 'uploader';
 
 // TODO: replace this with an actual file upload
 function* doUploadImage(action) {
   console.error('uploading image', action);
   const uploadedFile = yield call((data) => {
     console.error('running saga', data);
-    return new Promise((resolve) => {
-      setTimeout(() => resolve({
-        imageUrl: 'http://images6.fanpop.com/image/photos/33400000/Cute-Cats-cats-33440930-1280-800.jpg',
-      }), 5000);
-    });
+    return uploader.upload(action.payload.file, action.payload.fileName);
   }, action.payload);
 
   yield put({ type: IMAGE_UPLOAD_COMPLETE, payload: uploadedFile });
+  yield put({ type: CREATE_PROJECT, payload: { image: uploadedFile } });
 }
 
 export function* uploadImage() {
