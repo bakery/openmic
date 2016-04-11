@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
+// import { createSelector } from 'reselect';
 import RecordButton from 'RecordButton';
 import PlayButton from 'PlayButton';
 import {
@@ -19,42 +19,43 @@ import { MARKER_STATE } from 'MarkerOverlay/constants';
 
 class Marker extends React.Component {
   onRecord = () => {
-    this.props.record(this.props.id);
+    this.props.record(this.props.marker.toJSON());
   };
 
   onStopRecording = () => {
-    this.props.stopRecording(this.props.id);
+    this.props.stopRecording(this.props.marker.toJSON());
   };
 
   onPlay = () => {
-    this.props.play(this.props.id, this.props.sound);
+    this.props.play(this.props.marker.toJSON());
   };
 
   onPause = () => {
-    this.props.pause(this.props.id, this.props.sound);
+    this.props.pause(this.props.marker.toJSON());
   };
 
   getMarkerButton = () => {
-    if (this.props.sound) {
-      return <PlayButton sound={this.props.sound} onPlay={this.onPlay} onPause={this.onPause} />;
+    if (this.props.marker.get('sound')) {
+      return <PlayButton sound={this.props.marker.get('sound')} onPlay={this.onPlay} onPause={this.onPause} />;
     }
 
-    const isRecording = this.props.state === MARKER_STATE.RECORDING;
+    const isRecording = this.props.marker.get('state') === MARKER_STATE.RECORDING;
+    console.error('@@@ isRecording', isRecording);
     return <RecordButton recording={isRecording} onRecord={this.onRecord} onStopRecording={this.onStopRecording} />;
   };
 
   generateClassName = () => {
     const base = 'marker';
 
-    if (this.props.state === MARKER_STATE.RECORDING) {
+    if (this.props.marker.get('state') === MARKER_STATE.RECORDING) {
       return `${base} recording`;
     }
 
-    if (this.props.state === MARKER_STATE.PLAYING) {
+    if (this.props.marker.get('state') === MARKER_STATE.PLAYING) {
       return `${base} playing`;
     }
 
-    if (this.props.sound) {
+    if (this.props.marker.get('sound')) {
       return `${base} normal`;
     }
 
@@ -64,10 +65,12 @@ class Marker extends React.Component {
   render() {
     console.error('marker props are', this.props);
 
+    const marker = this.props.marker;
+
     const markerWidth = 48;
     const markerHeight = 50;
-    const x = Math.floor(100 * this.props.x);
-    const y = Math.floor(100 * this.props.y);
+    const x = Math.floor(100 * marker.get('x'));
+    const y = Math.floor(100 * marker.get('y'));
     const styles = {
       left: `${x}%`,
       top: `${y}%`,
@@ -89,20 +92,13 @@ class Marker extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    record: (markerId) => dispatch(requestAudioRecording(markerId)),
-    stopRecording: (markerId) => dispatch(stopAudioRecording(markerId)),
-    play: (markerId, sound) => dispatch(playSound(markerId, sound)),
-    pause: (markerId, sound) => dispatch(pauseSound(markerId, sound)),
+    record: (marker) => dispatch(requestAudioRecording(marker)),
+    stopRecording: (marker) => dispatch(stopAudioRecording(marker)),
+    play: (marker) => dispatch(playSound(marker)),
+    pause: (marker) => dispatch(pauseSound(marker)),
   };
 }
 
-export default connect(createSelector(
-  (state, props) => {
-    console.error('first selector', state.get('markers').get('items'), props);
-    return state.get('markers').get('items').get(props.id);
-  },
-  (marker) => ({
-    state: marker.get('state'),
-    sound: marker.get('sound'),
-  })
-), mapDispatchToProps)(Marker);
+export default connect(() => {
+  return {};
+}, mapDispatchToProps)(Marker);

@@ -30,6 +30,7 @@ function* doGetProject(action) {
       type: PROJECT_LOADED,
       payload: {
         project: {
+          id: project.objectId,
           image: project.image,
         },
       },
