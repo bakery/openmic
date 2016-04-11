@@ -38,4 +38,15 @@ export default {
       });
     });
   },
+
+  deleteMarker: (marker) => {
+    return new Promise((resolve) => {
+      const query = new Parse.Query(Project);
+      query.get(marker.projectId).then((project) => {
+        const markers = _.filter(project.get('markers') || [],
+          (m) => m.id !== marker.id);
+        project.save({ markers }).then(() => resolve());
+      });
+    });
+  },
 };

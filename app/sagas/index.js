@@ -8,6 +8,7 @@ import { uploadAudio } from './uploadAudio.saga';
 import { getProject } from './getProject.saga';
 import { createProject } from './createProject.saga';
 import { syncMarkers } from './syncMarkers.saga';
+import { delayedMarkerDelete } from './delayedMarkerDelete.saga';
 
 export default [
   uploadImage,
@@ -17,4 +18,5 @@ export default [
   getProject,
   createProject,
   syncMarkers,
+  delayedMarkerDelete,
 ];
