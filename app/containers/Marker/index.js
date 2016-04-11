@@ -9,11 +9,14 @@ import { connect } from 'react-redux';
 // import { createSelector } from 'reselect';
 import RecordButton from 'RecordButton';
 import PlayButton from 'PlayButton';
+import MarkerDeleteCountdown from 'MarkerDeleteCountdown';
 import {
   requestAudioRecording,
   stopAudioRecording,
   playSound,
   pauseSound,
+  initMarkerDeletion,
+  cancelMarkerDeletion,
 } from 'MarkerOverlay/actions';
 import { MARKER_STATE } from 'MarkerOverlay/constants';
 
@@ -55,11 +58,19 @@ class Marker extends React.Component {
       return `${base} playing`;
     }
 
+    if (this.props.marker.get('state') === MARKER_STATE.DELETING) {
+      return `${base} deleting`;
+    }
+
+    if (this.props.marker.get('state') === MARKER_STATE.DELETION_CONFIRMED) {
+      return `${base} poof`;
+    }
+
     if (this.props.marker.get('sound')) {
       return `${base} normal`;
     }
 
-    return `marker ${base} ready-to-record`;
+    return `${base} ready-to-record`;
   };
 
   render() {
@@ -80,10 +91,37 @@ class Marker extends React.Component {
       height: markerHeight,
     };
 
+    const divProps = {
+      className: this.generateClassName(),
+      style: styles,
+      onMouseDown: () => {
+        console.error('mouse down', this.props);
+        if (this.props.marker.get('state') === MARKER_STATE.NORMAL) {
+          this.deletionTimerId = setTimeout(() => {
+            this.props.initMarkerDeletion(this.props.marker.toJSON());
+          }, 1000);
+        }
+      },
+      onMouseUp: () => {
+        if (this.deletionTimerId) {
+          clearTimeout(this.deletionTimerId);
+        }
+
+        if (this.props.marker.get('state') === MARKER_STATE.DELETING) {
+          this.props.cancelMarkerDeletion(this.props.marker.toJSON());
+        }
+      },
+      onMouseOut: () => {
+        if (this.props.marker.get('state') === MARKER_STATE.DELETING) {
+          this.props.cancelMarkerDeletion(this.props.marker.toJSON());
+        }
+      },
+    };
+
     return (
-      <div onClick={this.onClick} className={this.generateClassName()} style={styles}>
+      <div { ...divProps }>
         {this.getMarkerButton()}
-        <div className="countdown"></div>
+        {this.props.marker.get('state') === MARKER_STATE.DELETING ? <MarkerDeleteCountdown /> : null}
       </div>
     );
   }
@@ -96,6 +134,8 @@ function mapDispatchToProps(dispatch) {
     stopRecording: (marker) => dispatch(stopAudioRecording(marker)),
     play: (marker) => dispatch(playSound(marker)),
     pause: (marker) => dispatch(pauseSound(marker)),
+    initMarkerDeletion: (marker) => dispatch(initMarkerDeletion(marker)),
+    cancelMarkerDeletion: (marker) => dispatch(cancelMarkerDeletion(marker)),
   };
 }
 

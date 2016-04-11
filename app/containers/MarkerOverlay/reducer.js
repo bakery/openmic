@@ -15,6 +15,10 @@ import {
   PAUSE_AUDIO,
   AUDIO_PLAYBACK_COMPLETE,
   AUDIO_RECORDING_UPLOADED,
+  INIT_MARKER_DELETION,
+  CANCEL_MARKER_DELETION,
+  MARKER_DELETION_CONFIRMED,
+  DELETE_MARKER,
 } from './constants';
 import _ from 'underscore';
 
@@ -80,6 +84,28 @@ function markerOverlayReducer(state = initialState, action) {
         });
       }
       return state;
+    case INIT_MARKER_DELETION:
+      return state.updateIn(['items', action.payload.marker.id], (marker) => {
+        return marker.set('state', MARKER_STATE.DELETING);
+      });
+    case MARKER_DELETION_CONFIRMED:
+      const mtd = state.get('items').find(
+        (i) => i.get('id') === action.payload.marker.id
+      );
+      if (mtd && mtd.get('state') === MARKER_STATE.DELETING) {
+        return state.updateIn(['items', action.payload.marker.id], (marker) => {
+          return marker.set('state', MARKER_STATE.DELETION_CONFIRMED);
+        });
+      }
+      return state;
+    case CANCEL_MARKER_DELETION:
+      return state.updateIn(['items', action.payload.marker.id], (marker) => {
+        return marker.set('state', MARKER_STATE.NORMAL);
+      });
+    case DELETE_MARKER:
+      return state.updateIn(['items'], (items) => {
+        return items.filter((m) => m.get('id') !== action.payload.marker.id);
+      });
     default:
       return state;
   }

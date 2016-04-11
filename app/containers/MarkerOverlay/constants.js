@@ -16,8 +16,14 @@ export const PLAY_AUDIO = 'app/MarkerOverlay/PLAY_AUDIO';
 export const PAUSE_AUDIO = 'app/MarkerOverlay/PAUSE_AUDIO';
 export const AUDIO_PLAYBACK_COMPLETE = 'app/MarkerOverlay/AUDIO_PLAYBACK_COMPLETE';
 export const REQUEST_MARKER_SYNC = 'app/MarkerOverlay/REQUEST_MARKER_SYNC';
+export const INIT_MARKER_DELETION = 'app/MarkerOverlay/INIT_MARKER_DELETION';
+export const CANCEL_MARKER_DELETION = 'app/MarkerOverlay/CANCEL_MARKER_DELETION';
+export const DELETE_MARKER = 'app/MarkerOverlay/DELETE_MARKER';
+export const MARKER_DELETION_CONFIRMED = 'app/MarkerOverlay/MARKER_DELETION_CONFIRMED';
 export const MARKER_STATE = {
   NORMAL: 'NORMAL',
   RECORDING: 'RECORDING',
   PLAYING: 'PLAYING',
+  DELETING: 'DELETING',
+  DELETION_CONFIRMED: 'DELETION_CONFIRMED',
 };

@@ -10,6 +10,8 @@ import {
   STOP_AUDIO_RECORDING,
   PLAY_AUDIO,
   PAUSE_AUDIO,
+  INIT_MARKER_DELETION,
+  CANCEL_MARKER_DELETION,
 } from './constants';
 
 export function addMarker(marker) {
@@ -52,6 +54,24 @@ export function playSound(marker) {
 export function pauseSound(marker) {
   return {
     type: PAUSE_AUDIO,
+    payload: {
+      marker,
+    },
+  };
+}
+
+export function initMarkerDeletion(marker) {
+  return {
+    type: INIT_MARKER_DELETION,
+    payload: {
+      marker,
+    },
+  };
+}
+
+export function cancelMarkerDeletion(marker) {
+  return {
+    type: CANCEL_MARKER_DELETION,
     payload: {
       marker,
     },

@@ -6,6 +6,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { START_LOADING_PROJECT, PROJECT_LOADED } from 'Project/constants';
 import { ADD_MARKERS } from 'MarkerOverlay/constants';
 import ProjectApi from 'project.api';
+import _ from 'underscore';
 
 function* doGetProject(action) {
   const rx = /\/p\/([a-zA-z0-9]+)$/ig;
@@ -22,7 +23,11 @@ function* doGetProject(action) {
     yield put({
       type: ADD_MARKERS,
       payload: {
-        markers: project.markers,
+        markers: _.map(project.markers, (m) => {
+          return _.extend(m, {
+            projectId: project.objectId,
+          });
+        }),
       },
     });
 
