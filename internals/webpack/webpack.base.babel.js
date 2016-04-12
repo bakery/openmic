@@ -48,6 +48,10 @@ module.exports = (options) => ({
       // make fetch available
       fetch: 'exports?self.fetch!whatwg-fetch',
     }),
+    new webpack.DefinePlugin({
+      PARSE_API_ID: JSON.stringify(process.env.PARSE_API_ID),
+      PARSE_API_KEY: JSON.stringify(process.env.PARSE_API_KEY),
+    }),
   ]),
   postcss: () => options.postcssPlugins,
   resolve: {

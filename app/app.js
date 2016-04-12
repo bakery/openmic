@@ -51,10 +51,7 @@ const rootRoute = {
 
 // Init Parse
 import Parse from 'parse';
-Parse.initialize(
-  'Px3TnZvihAkXF02Ed5jyt50lsopW99DBdHbxEKDN',
-  'SJ1J3FNa1rmiIXJtiv7hGUjp1mQT0IMyIpfLw7ms'
-);
+Parse.initialize(PARSE_API_ID, PARSE_API_KEY);
 
 ReactDOM.render(
   <Provider store={store}>
