@@ -12,12 +12,11 @@ import imageUploaderSelector from 'imageUploaderSelector';
 import { createSelector } from 'reselect';
 import { UPLOADER_STATUS } from './constants';
 
-// import styles from './styles.css';
-
 class ImageSelector extends React.Component {
   render() {
     console.error('status is', this.props.status);
-    if (this.props.status === UPLOADER_STATUS.UPLOADING) {
+    const loadingOrDone = [UPLOADER_STATUS.UPLOADING, UPLOADER_STATUS.COMPLETE];
+    if (loadingOrDone.indexOf(this.props.status) !== -1) {
       return (
         <div id="dropzone">
           <h3 className="dropMessage">Uploading...</h3>
