@@ -1,3 +1,5 @@
+/* eslint-disable no-case-declarations */
+
 /*
  *
  * MarkerOverlay reducer
@@ -23,13 +25,7 @@ import {
 } from './constants';
 import _ from 'underscore';
 
-const createMarker = (markerData) => {
-  return _.extend({}, {
-    state: MARKER_STATE.NORMAL,
-  }, markerData);
-};
-
-
+const createMarker = (markerData) => _.extend({}, { state: MARKER_STATE.NORMAL }, markerData);
 const initialState = fromJS({
   items: {},
 });
@@ -37,79 +33,77 @@ const initialState = fromJS({
 function markerOverlayReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_MARKER:
-      return state.updateIn(['items'], (items) => {
-        // XX: if there are any markers without sound attached to them,
-        // get rid of them before adding a new marker
-        return items.filter((m) => {
-          return typeof m.get('sound') !== 'undefined';
-        }).set(action.payload.marker.id,
-          fromJS(createMarker(action.payload.marker))
-        );
-      });
+
+      // XX: if there are any markers without sound attached to them,
+      // get rid of them before adding a new marker
+      return state.updateIn(['items'],
+        (items) => items.filter((m) => typeof m.get('sound') !== 'undefined')
+          .set(action.payload.marker.id,
+            fromJS(createMarker(action.payload.marker))
+          )
+      );
     case ADD_MARKERS:
       return state.withMutations((s) => {
         (action.payload.markers || []).forEach((marker) => {
-          s.updateIn(['items'], (items) => {
-            return items.set(marker.id, fromJS(createMarker(marker)));
-          });
+          s.updateIn(['items'],
+            (items) => items.set(marker.id, fromJS(createMarker(marker)))
+          );
         });
       });
     case AUDIO_RECORDING_STARTED:
-      return state.updateIn(['items', action.payload.marker.id], (marker) => {
-        return marker.set('state', MARKER_STATE.RECORDING);
-      });
+      return state.updateIn(['items', action.payload.marker.id],
+        (marker) => marker.set('state', MARKER_STATE.RECORDING)
+      );
     case AUDIO_RECORDING_COMPLETE:
-      return state.updateIn(['items', action.payload.marker.id], (marker) => {
-        return marker.withMutations((m) => {
-          m.set('state', MARKER_STATE.NORMAL);
-          // m.set('sound', action.payload.sound);
-        });
-      });
+      return state.updateIn(['items', action.payload.marker.id],
+        (marker) => marker.set('state', MARKER_STATE.NORMAL)
+      );
     case AUDIO_RECORDING_UPLOADING:
-      return state.updateIn(['items', action.payload.marker.id], (marker) => {
-        return marker.set('state', MARKER_STATE.UPLOADING);
-      });
+      return state.updateIn(['items', action.payload.marker.id],
+        (marker) => marker.set('state', MARKER_STATE.UPLOADING)
+      );
     case AUDIO_RECORDING_UPLOADED:
-      return state.updateIn(['items', action.payload.marker.id], (marker) => {
-        return marker.withMutations((m) => {
+      return state.updateIn(['items', action.payload.marker.id],
+        (marker) => marker.withMutations((m) => {
           m.set('state', MARKER_STATE.NORMAL);
           m.set('sound', action.payload.sound);
-        });
-      });
+        })
+      );
     case PLAY_AUDIO:
-      return state.updateIn(['items', action.payload.marker.id], (marker) => {
-        return marker.set('state', MARKER_STATE.PLAYING);
-      });
+      return state.updateIn(['items', action.payload.marker.id],
+        (marker) => marker.set('state', MARKER_STATE.PLAYING)
+      );
     case PAUSE_AUDIO:
-      return state.updateIn(['items', action.payload.marker.id], (marker) => {
-        return marker.set('state', MARKER_STATE.NORMAL);
-      });
+      return state.updateIn(['items', action.payload.marker.id],
+        (marker) => marker.set('state', MARKER_STATE.NORMAL)
+      );
     case AUDIO_PLAYBACK_COMPLETE:
-      return state.updateIn(['items', action.payload.marker.id], (marker) => {
-        return marker.set('state', MARKER_STATE.NORMAL);
-      });
+      return state.updateIn(['items', action.payload.marker.id],
+        (marker) => marker.set('state', MARKER_STATE.NORMAL)
+      );
     case INIT_MARKER_DELETION:
-      return state.updateIn(['items', action.payload.marker.id], (marker) => {
-        return marker.set('state', MARKER_STATE.DELETING);
-      });
+      return state.updateIn(['items', action.payload.marker.id],
+        (marker) => marker.set('state', MARKER_STATE.DELETING)
+      );
     case MARKER_DELETION_CONFIRMED:
       const mtd = state.get('items').find(
         (i) => i.get('id') === action.payload.marker.id
       );
       if (mtd && mtd.get('state') === MARKER_STATE.DELETING) {
-        return state.updateIn(['items', action.payload.marker.id], (marker) => {
-          return marker.set('state', MARKER_STATE.DELETION_CONFIRMED);
-        });
+        return state.updateIn(['items', action.payload.marker.id],
+          (marker) => marker.set('state', MARKER_STATE.DELETION_CONFIRMED)
+        );
       }
+
       return state;
     case CANCEL_MARKER_DELETION:
-      return state.updateIn(['items', action.payload.marker.id], (marker) => {
-        return marker.set('state', MARKER_STATE.NORMAL);
-      });
+      return state.updateIn(['items', action.payload.marker.id],
+        (marker) => marker.set('state', MARKER_STATE.NORMAL)
+      );
     case DELETE_MARKER:
-      return state.updateIn(['items'], (items) => {
-        return items.filter((m) => m.get('id') !== action.payload.marker.id);
-      });
+      return state.updateIn(['items'],
+        (items) => items.filter((m) => m.get('id') !== action.payload.marker.id)
+      );
     default:
       return state;
   }

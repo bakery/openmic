@@ -6,7 +6,6 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-// import { createSelector } from 'reselect';
 import RecordButton from 'RecordButton';
 import PlayButton from 'PlayButton';
 import MarkerDeleteCountdown from 'MarkerDeleteCountdown';
@@ -118,6 +117,7 @@ class Marker extends React.Component {
           }, 1000);
         }
       },
+
       onMouseUp: () => {
         if (this.deletionTimerId) {
           clearTimeout(this.deletionTimerId);
@@ -127,6 +127,7 @@ class Marker extends React.Component {
           this.props.cancelMarkerDeletion(this.props.marker.toJSON());
         }
       },
+
       onMouseOut: () => {
         if (this.props.marker.get('state') === MARKER_STATE.DELETING) {
           this.props.cancelMarkerDeletion(this.props.marker.toJSON());
@@ -155,10 +156,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(createSelector(projectSelector,
-  (project) => {
-    return {
-      maxRecordingTime: project.get('maxRecordingTime'),
-    };
-  },
-), mapDispatchToProps)(Marker);
+function selectProjectAttributes(project) {
+  return {
+    maxRecordingTime: project.get('maxRecordingTime'),
+  };
+}
+
+export default connect(
+  createSelector(projectSelector, selectProjectAttributes),
+  mapDispatchToProps
+)(Marker);

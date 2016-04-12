@@ -62,7 +62,6 @@ function* doRecordAudio(action) {
   }
 }
 
-
 export function* recordAudio() {
   yield* takeEvery([REQUEST_AUDIO_RECORDING, STOP_AUDIO_RECORDING], doRecordAudio);
 }

@@ -1,3 +1,5 @@
+/* eslint-disable react/prefer-stateless-function */
+
 /**
 *
 * ImageViewer
@@ -5,11 +7,9 @@
 */
 
 import React from 'react';
-// import styles from './image-viewer.css';
 
 class ImageViewer extends React.Component {
   render() {
-    // hidden
     return (
       <div className="image-container">
         <div className="image-viewer">

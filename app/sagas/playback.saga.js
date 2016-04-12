@@ -41,16 +41,8 @@ function* doPlay(action) {
     }
   } catch (e) {
     console.error('error with playback', e);
-    // yield put({
-    //   type: AUDIO_RECORDING_FAILED,
-    //   payload: {
-    //     error: e,
-    //     markerId: action.payload.markerId,
-    //   },
-    // });
   }
 }
-
 
 export function* playback() {
   yield* takeEvery([PLAY_AUDIO, PAUSE_AUDIO], doPlay);

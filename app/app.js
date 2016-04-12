@@ -1,3 +1,5 @@
+/* global PARSE_API_ID:false, PARSE_API_KEY:false */
+
 /**
  * app.js
  *

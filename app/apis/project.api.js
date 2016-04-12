@@ -6,7 +6,7 @@ const Project = Parse.Object.extend('Project');
 const __cleanMarkerAttributes = (attributes) => _.omit(attributes, 'projectId', 'state');
 
 export default {
-  getProjectById: (id) => {
+  getProjectById(id) {
     return new Promise((resolve, reject) => {
       const query = new Parse.Query(Project);
       return query.get(id).then((project) => {
@@ -19,7 +19,7 @@ export default {
     });
   },
 
-  createProject: (image) => {
+  createProject(image) {
     return new Promise((resolve) => {
       new Project().save({ image }).then((project) => {
         resolve(project.toJSON());
@@ -27,7 +27,7 @@ export default {
     });
   },
 
-  syncMarker: (marker) => {
+  syncMarker(marker) {
     return new Promise((resolve) => {
       const query = new Parse.Query(Project);
       query.get(marker.projectId).then((project) => {
@@ -39,7 +39,7 @@ export default {
     });
   },
 
-  deleteMarker: (marker) => {
+  deleteMarker(marker) {
     return new Promise((resolve) => {
       const query = new Parse.Query(Project);
       query.get(marker.projectId).then((project) => {

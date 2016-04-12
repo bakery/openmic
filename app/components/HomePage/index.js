@@ -7,14 +7,6 @@
 import React from 'react';
 import ImageSelector from 'ImageSelector';
 
-// TODO: check for browser capability
-// <div class="landing-container">
-//   {{#if canRecord}}
-//   {{else}}
-//     <h2>You cannot record anything but you can check out some popular sounds</h2>
-//   {{/if}}
-// </div>
-
 export function HomePage() {
   return (
     <div className="editor">

@@ -1,3 +1,5 @@
+/* eslint-disable react/prefer-stateless-function */
+
 /**
 *
 * PlayButton
@@ -5,7 +7,6 @@
 */
 
 import React from 'react';
-
 
 class PlayButton extends React.Component {
   render() {

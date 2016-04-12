@@ -11,12 +11,12 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import projectSelector from 'projectSelector';
 
-
 class Toolbar extends React.Component {
   recordingIndicator = () => {
     if (this.props.recording) {
       return <RecordingIndicator maxRecordingTime={this.props.maxRecordingTime} />;
     }
+
     return null;
   };
 
@@ -24,6 +24,7 @@ class Toolbar extends React.Component {
     if (this.props.loading) {
       return <LoadingIndicator />;
     }
+
     return null;
   };
 
@@ -44,16 +45,16 @@ class Toolbar extends React.Component {
   }
 }
 
+function selectProjectAttributes(project) {
+  return {
+    recording: project.get('recording'),
+    loading: project.get('loading'),
+    maxRecordingTime: 15 * 1000,
+  };
+}
+
 const mapStateToProps = createSelector(
-  projectSelector,
-  (project) => {
-    return {
-      recording: project.get('recording'),
-      loading: project.get('loading'),
-      maxRecordingTime: 15 * 1000,
-    };
-  },
-);
+  projectSelector, selectProjectAttributes);
 
 function mapDispatchToProps(dispatch) {
   return {

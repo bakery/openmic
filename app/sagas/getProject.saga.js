@@ -35,11 +35,7 @@ function* doGetProject(action) {
     yield put({
       type: ADD_MARKERS,
       payload: {
-        markers: _.map(project.markers, (m) => {
-          return _.extend(m, {
-            projectId: project.objectId,
-          });
-        }),
+        markers: _.map(project.markers, (m) => _.extend(m, { projectId: project.objectId })),
       },
     });
   }

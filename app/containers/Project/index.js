@@ -51,15 +51,16 @@ class Project extends React.Component {
   }
 }
 
+function selectProjectAttributes(project) {
+  return {
+    loading: project.get('loading'),
+    project: project.get('project'),
+    readOnly: project.get('readOnly'),
+  };
+}
+
 const mapStateToProps = createSelector(
-    projectSelector,
-    (project) => {
-      return {
-        loading: project.get('loading'),
-        project: project.get('project'),
-        readOnly: project.get('readOnly'),
-      };
-    },
+  projectSelector, selectProjectAttributes
 );
 
 function mapDispatchToProps(dispatch) {

@@ -1,5 +1,4 @@
-// import Browser from './browser';
-
+/* global MediaRecorder: false */
 
 class AudioRecorder {
   constructor() {
@@ -69,6 +68,7 @@ class AudioRecorder {
         this.mediaRecorder.stop();
         this.recording = false;
       }
+
       resolve(this.saveRecording());
     });
   }

@@ -46,6 +46,7 @@ module.exports = require('./webpack.base.babel')({
         if (!/buttons/.test(image.url)) {
           return Promise.reject();
         }
+
         return Promise.resolve();
       },
     }),

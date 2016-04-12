@@ -9,6 +9,7 @@ const OfflinePlugin = require('offline-plugin');
 const cssnext = require('postcss-cssnext');
 const postcssFocus = require('postcss-focus');
 const postcssReporter = require('postcss-reporter');
+const postcssSprites = require('postcss-sprites').default;
 
 module.exports = require('./webpack.base.babel')({
   // In production, we skip all hot-reloading stuff
@@ -24,20 +25,46 @@ module.exports = require('./webpack.base.babel')({
 
   // We use ExtractTextPlugin so we get a seperate CSS file instead
   // of the CSS being in the JS and injected as a style tag
-  cssLoaders: ExtractTextPlugin.extract(
-    'style-loader',
-    'css-loader?modules&importLoaders=1!postcss-loader',
-    'sass-loader',
-  ),
+  // cssLoaders: ExtractTextPlugin.extract(
+  //   'style-loader',
+
+  //   // 'css-loader?modules&importLoaders=1!postcss-loader',
+  //   'css-loader',
+  //   'postcss-loader',
+  //   'sass-loader',
+  // ),
+
+  cssLoaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
 
   // In production, we minify our CSS with cssnano
+  // postcssPlugins: [
+  //   postcssFocus(),
+  //   cssnext({
+  //     browsers: ['last 2 versions', 'IE > 10'],
+  //   }),
+  //   postcssReporter({
+  //     clearMessages: true,
+  //   }),
+  // ],
   postcssPlugins: [
-    postcssFocus(),
-    cssnext({
-      browsers: ['last 2 versions', 'IE > 10'],
+    postcssFocus(), // Add a :focus to every :hover
+    cssnext({ // Allow future CSS features to be used, also auto-prefixes the CSS...
+      browsers: ['last 2 versions', 'IE > 10'], // ...based on this browser list
     }),
-    postcssReporter({
+    postcssReporter({ // Posts messages from plugins to the terminal
       clearMessages: true,
+    }),
+    postcssSprites({
+      stylesheetPath: './app/styles',
+      spritePath: './app/images/',
+      filterBy: (image) => {
+        // only sprite buttons
+        if (!/buttons/.test(image.url)) {
+          return Promise.reject();
+        }
+
+        return Promise.resolve();
+      },
     }),
   ],
   plugins: [
@@ -101,6 +128,11 @@ module.exports = require('./webpack.base.babel')({
         // do not want them to be preloaded at all (cached only when first loaded)
         additional: ['*.chunk.js'],
       },
+    }),
+
+    new webpack.DefinePlugin({
+      PARSE_API_ID: JSON.stringify(process.env.PARSE_API_ID),
+      PARSE_API_KEY: JSON.stringify(process.env.PARSE_API_KEY),
     }),
   ],
 });

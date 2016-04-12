@@ -6,14 +6,11 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-
 import { createSelector } from 'reselect';
 import markersSelector from 'markersSelector';
 import projectSelector from 'projectSelector';
 import { addMarker } from './actions';
 import Marker from 'Marker';
-
-// import styles from './styles.css';
 
 class MarkerOverlay extends React.Component {
 
@@ -30,9 +27,9 @@ class MarkerOverlay extends React.Component {
         <div className="marker-wrapper" onClick={this.onAddMarker}>
           <div className="markers">
             {
-              this.props.markers.map((m) => {
-                return <Marker readOnly={this.props.readOnly} marker={m} key={m.get('id')} />;
-              })
+              this.props.markers.map(
+                (m) => <Marker readOnly={this.props.readOnly} marker={m} key={m.get('id')} />
+              )
             }
           </div>
         </div>
@@ -59,11 +56,14 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(createSelector([markersSelector, projectSelector],
-  (markers, project) => {
-    return {
-      markers: markers.get('items'),
-      project: project.get('project'),
-    };
-  },
-), mapDispatchToProps)(MarkerOverlay);
+function selectMarkersAndProject(markers, project) {
+  return {
+    markers: markers.get('items'),
+    project: project.get('project'),
+  };
+}
+
+export default connect(
+  createSelector([markersSelector, projectSelector], selectMarkersAndProject),
+  mapDispatchToProps
+)(MarkerOverlay);

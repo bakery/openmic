@@ -63,6 +63,8 @@ module.exports = {
       'components',
       'selectors',
       'sagas',
+      'apis',
+      'lib',
       'assets',
       'node_modules',
     ],

@@ -2,13 +2,11 @@ import 'whatwg-fetch';
 
 const getRequestData = (fileName) => {
   const url = `/aws/sign?file=${encodeURIComponent(fileName)}`;
-  return fetch(url).then((response) => {
-    return response.json();
-  });
+  return fetch(url).then((response) => response.json());
 };
 
 export default {
-  upload: (file, fileName) => {
+  upload(file, fileName) {
     return new Promise((resolve, reject) => {
       getRequestData(fileName).then((data) => {
         console.error('got data for request', data);
@@ -31,6 +29,7 @@ export default {
           } else {
             reject(d);
           }
+
           console.error(d);
         });
       });

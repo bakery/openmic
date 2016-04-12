@@ -1,14 +1,13 @@
 /* eslint-disable no-constant-condition */
 
 import { takeEvery } from 'redux-saga';
-import { take, call, apply, put, cancel, fork } from 'redux-saga/effects';
+import { call, put, cancel, fork } from 'redux-saga/effects';
 import {
   INIT_MARKER_DELETION,
   DELETE_MARKER,
   MARKER_DELETION_CONFIRMED,
   CANCEL_MARKER_DELETION,
 } from 'MarkerOverlay/constants';
-import { SagaCancellationException } from 'redux-saga';
 
 const delay = (timeout) => new Promise((resolve) => setTimeout(() => resolve(), timeout));
 let __currentDeletionTask = null;
@@ -33,9 +32,9 @@ function* deleteMarker(action) {
       },
     });
   } catch (error) {
-    if (error instanceof SagaCancellationException) {
-      // the task has been cancelled
-    }
+    // if (error instanceof SagaCancellationException) {
+    //   // the task has been cancelled
+    // }
   } finally {
     __currentDeletionTask = null;
   }
@@ -53,7 +52,6 @@ function* manageMarkerDeletion(action) {
     }
   }
 }
-
 
 export function* delayedMarkerDelete() {
   yield* takeEvery([INIT_MARKER_DELETION, CANCEL_MARKER_DELETION], manageMarkerDeletion);

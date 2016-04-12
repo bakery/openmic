@@ -1,5 +1,3 @@
-const projectSelector = (state) => {
-  return state.get('project');
-};
+const projectSelector = (state) => state.get('project');
 
 export default projectSelector;

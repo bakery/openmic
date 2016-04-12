@@ -1,3 +1,5 @@
+/* eslint-disable react/prefer-stateless-function */
+
 /*
  *
  * RecordingIndicator

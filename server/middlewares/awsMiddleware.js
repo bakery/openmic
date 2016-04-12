@@ -1,5 +1,7 @@
-var s3BrowserDirectUpload = require('s3-browser-direct-upload');
-var url = require('url');
+/* eslint-disable new-cap */
+
+const s3BrowserDirectUpload = require('s3-browser-direct-upload');
+const url = require('url');
 
 const s3clientOptions = {
   accessKeyId: process.env.AWS_KEY,
@@ -11,8 +13,8 @@ const s3clientOptions = {
 const s3client = new s3BrowserDirectUpload(s3clientOptions);
 
 const middleware = (req, res) => {
-  const url_parts = url.parse(req.url, true);
-  const query = url_parts.query;
+  const urlParts = url.parse(req.url, true);
+  const query = urlParts.query;
 
   console.error('query is', query);
 
