@@ -101,7 +101,12 @@ class Marker extends React.Component {
     const divProps = {
       className: this.generateClassName(),
       style: styles,
-      onMouseDown: () => {
+      onMouseDown: (e) => {
+        // if this is not a left click, exit
+        if (e.button !== 0) {
+          return;
+        }
+
         console.error('mouse down', this.props);
         if (this.props.marker.get('state') === MARKER_STATE.NORMAL) {
           this.deletionTimerId = setTimeout(() => {
