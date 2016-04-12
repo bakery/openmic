@@ -22,7 +22,7 @@ class Project extends React.Component {
           <div className="image-container-wrapper">
             <div className="frame">
               <ImageViewer url={this.props.project.image} />
-              <MarkerOverlay />
+              <MarkerOverlay readOnly={this.props.readOnly} />
               <div className="tutorial-wrapper"></div>
             </div>
           </div>
@@ -51,6 +51,7 @@ const mapStateToProps = createSelector(
       return {
         loading: project.get('loading'),
         project: project.get('project'),
+        readOnly: project.get('readOnly'),
       };
     },
 );

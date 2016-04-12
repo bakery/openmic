@@ -18,7 +18,9 @@ import Marker from 'Marker';
 class MarkerOverlay extends React.Component {
 
   onAddMarker = (e) => {
-    this.props.addMarker(e, this.props.project.id);
+    if (!this.props.readOnly) {
+      this.props.addMarker(e, this.props.project.id);
+    }
   };
 
   render() {
@@ -29,7 +31,7 @@ class MarkerOverlay extends React.Component {
           <div className="markers">
             {
               this.props.markers.map((m) => {
-                return <Marker marker={m} key={m.get('id')} />;
+                return <Marker readOnly={this.props.readOnly} marker={m} key={m.get('id')} />;
               })
             }
           </div>

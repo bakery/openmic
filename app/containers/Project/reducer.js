@@ -8,6 +8,7 @@ import { fromJS } from 'immutable';
 import {
   START_LOADING_PROJECT,
   PROJECT_LOADED,
+  CREATE_PROJECT,
 } from './constants';
 import {
   AUDIO_RECORDING_STARTED,
@@ -19,10 +20,13 @@ const initialState = fromJS({
   loading: false,
   recording: false,
   maxRecordingTime: 1000 * 15,
+  readOnly: true,
 });
 
 function projectReducer(state = initialState, action) {
   switch (action.type) {
+    case CREATE_PROJECT:
+      return state.updateIn(['readOnly'], () => false);
     case START_LOADING_PROJECT:
       return state.updateIn(['loading'], () => true);
     case PROJECT_LOADED:

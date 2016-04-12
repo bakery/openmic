@@ -107,6 +107,10 @@ class Marker extends React.Component {
           return;
         }
 
+        if (this.props.readOnly) {
+          return;
+        }
+
         console.error('mouse down', this.props);
         if (this.props.marker.get('state') === MARKER_STATE.NORMAL) {
           this.deletionTimerId = setTimeout(() => {
