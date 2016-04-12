@@ -24,11 +24,12 @@ export function addMarker(marker) {
   };
 }
 
-export function requestAudioRecording(marker) {
+export function requestAudioRecording(marker, maxRecordingTime) {
   return {
     type: REQUEST_AUDIO_RECORDING,
     payload: {
       marker,
+      maxRecordingTime,
     },
   };
 }

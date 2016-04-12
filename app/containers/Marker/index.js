@@ -19,10 +19,13 @@ import {
   cancelMarkerDeletion,
 } from 'MarkerOverlay/actions';
 import { MARKER_STATE } from 'MarkerOverlay/constants';
+import { createSelector } from 'reselect';
+import projectSelector from 'projectSelector';
 
 class Marker extends React.Component {
   onRecord = () => {
-    this.props.record(this.props.marker.toJSON());
+    this.props.record(this.props.marker.toJSON(),
+      this.props.maxRecordingTime);
   };
 
   onStopRecording = () => {
@@ -130,7 +133,7 @@ class Marker extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    record: (marker) => dispatch(requestAudioRecording(marker)),
+    record: (marker, maxRecordingTime) => dispatch(requestAudioRecording(marker, maxRecordingTime)),
     stopRecording: (marker) => dispatch(stopAudioRecording(marker)),
     play: (marker) => dispatch(playSound(marker)),
     pause: (marker) => dispatch(pauseSound(marker)),
@@ -139,6 +142,10 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(() => {
-  return {};
-}, mapDispatchToProps)(Marker);
+export default connect(createSelector(projectSelector,
+  (project) => {
+    return {
+      maxRecordingTime: project.get('maxRecordingTime'),
+    };
+  },
+), mapDispatchToProps)(Marker);
