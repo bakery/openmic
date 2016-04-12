@@ -28,6 +28,7 @@
     "s3-browser-direct-upload": "^0.1.2",
     "sanitize.css": "^3.3.0",
     "scroll-behavior": "^0.3.2",
+    "user-agent-parser": "^0.6.0",
     "whatwg-fetch": "^0.11.0"
   },
   "devDependencies": {

@@ -1,29 +1,11 @@
+import UAParser from 'ua-parser-js';
+
 export default {
   isBrowserSupported: () => {
-    if (!navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-      return navigator.userAgent.match(
-          /(firefox|safari)/i
-      );
-    }
-
-    return false;
-  },
-
-  canRecord: () => {
-    if (!navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-      return navigator.userAgent.match(
-          /(firefox|safari)/i
-      );
-    }
-
-    return false;
-  },
-
-  canRecordWithHTML5: () => {
-    if (!navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-      return (typeof chrome !== 'undefined');
-    }
-
-    return false;
+    const bi = new UAParser().getResult();
+    return (
+      (bi.browser.name.match(/chrome/ig) && parseInt(bi.browser.major, 10) >= 49) ||
+      (bi.browser.name.match(/firefox/ig) && parseInt(bi.browser.major, 10) >= 25)
+    );
   },
 };
