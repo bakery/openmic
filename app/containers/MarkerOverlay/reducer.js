@@ -19,6 +19,7 @@ import {
   CANCEL_MARKER_DELETION,
   MARKER_DELETION_CONFIRMED,
   DELETE_MARKER,
+  AUDIO_RECORDING_UPLOADING,
 } from './constants';
 import _ from 'underscore';
 
@@ -57,12 +58,17 @@ function markerOverlayReducer(state = initialState, action) {
       return state.updateIn(['items', action.payload.marker.id], (marker) => {
         return marker.withMutations((m) => {
           m.set('state', MARKER_STATE.NORMAL);
-          m.set('sound', action.payload.sound);
+          // m.set('sound', action.payload.sound);
         });
+      });
+    case AUDIO_RECORDING_UPLOADING:
+      return state.updateIn(['items', action.payload.marker.id], (marker) => {
+        return marker.set('state', MARKER_STATE.UPLOADING);
       });
     case AUDIO_RECORDING_UPLOADED:
       return state.updateIn(['items', action.payload.marker.id], (marker) => {
         return marker.withMutations((m) => {
+          m.set('state', MARKER_STATE.NORMAL);
           m.set('sound', action.payload.sound);
         });
       });

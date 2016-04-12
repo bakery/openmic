@@ -45,8 +45,8 @@ class Marker extends React.Component {
       return <PlayButton sound={this.props.marker.get('sound')} onPlay={this.onPlay} onPause={this.onPause} />;
     }
 
-    const isRecording = this.props.marker.get('state') === MARKER_STATE.RECORDING;
-    console.error('@@@ isRecording', isRecording);
+    const markerState = this.props.marker.get('state');
+    const isRecording = markerState === MARKER_STATE.RECORDING;
     return <RecordButton recording={isRecording} onRecord={this.onRecord} onStopRecording={this.onStopRecording} />;
   };
 
@@ -55,6 +55,10 @@ class Marker extends React.Component {
 
     if (this.props.marker.get('state') === MARKER_STATE.RECORDING) {
       return `${base} recording`;
+    }
+
+    if (this.props.marker.get('state') === MARKER_STATE.UPLOADING) {
+      return `${base} uploading`;
     }
 
     if (this.props.marker.get('state') === MARKER_STATE.PLAYING) {
