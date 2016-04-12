@@ -26,7 +26,7 @@ class Project extends React.Component {
               <div className="tutorial-wrapper"></div>
             </div>
           </div>
-          <SharingBar />
+          <SharingBar projectId={this.props.project.id} />
         </div>
       );
     }
