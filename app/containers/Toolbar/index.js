@@ -6,6 +6,7 @@
 
 import React from 'react';
 import RecordingIndicator from 'RecordingIndicator';
+import LoadingIndicator from 'LoadingIndicator';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import projectSelector from 'projectSelector';
@@ -19,6 +20,13 @@ class Toolbar extends React.Component {
     return null;
   };
 
+  loadingIndicator = () => {
+    if (this.props.loading) {
+      return <LoadingIndicator />;
+    }
+    return null;
+  };
+
   render() {
     return (
       <div className="toolbar-wrapper">
@@ -28,7 +36,7 @@ class Toolbar extends React.Component {
           <div className="handle">
             <h3 className=""><a href="/">openmic</a></h3>
             { this.recordingIndicator() }
-            <div className="loader"></div>
+            { this.loadingIndicator() }
           </div>
         </div>
       </div>

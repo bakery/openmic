@@ -15,25 +15,31 @@ import ImageViewer from 'ImageViewer';
 import MarkerOverlay from 'MarkerOverlay';
 
 class Project extends React.Component {
-  render() {
-    if (this.props.loading) {
+  content = () => {
+    if (!this.props.loading) {
       return (
-        <div>loading...</div>
+        <div>
+          <div className="image-container-wrapper">
+            <div className="frame">
+              <ImageViewer url={this.props.project.image} />
+              <MarkerOverlay />
+              <div className="tutorial-wrapper"></div>
+            </div>
+          </div>
+          <SharingBar />
+        </div>
       );
     }
 
+    return null;
+  };
+
+  render() {
     return (
       <div className="editor">
         <div className="permission-helper-wrapper"></div>
         <Toolbar />
-        <div className="image-container-wrapper">
-          <div className="frame">
-            <ImageViewer url={this.props.project.image} />
-            <MarkerOverlay />
-            <div className="tutorial-wrapper"></div>
-          </div>
-        </div>
-        <SharingBar />
+        {this.content()}
       </div>
     );
   }
