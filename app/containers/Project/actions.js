@@ -5,11 +5,14 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  PROJECT_IMAGE_LOADED,
 } from './constants';
 
-export function defaultAction() {
+export function reportProjectImageLoaded(project) {
   return {
-    type: DEFAULT_ACTION,
+    type: PROJECT_IMAGE_LOADED,
+    payload: {
+      project,
+    },
   };
 }
