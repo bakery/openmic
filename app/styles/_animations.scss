@@ -1,152 +1,110 @@
 @mixin smooth {
-	@include transition(ease-in-out 0.25s);
+  @include transition(ease-in-out 0.25s);
 }
 
 @mixin pulsating-animation($time:1.5s){
-	-moz-animation: pulse $time infinite;
-	-webkit-animation: pulse $time infinite;
+  animation: pulse $time infinite;
 }
 
 @mixin jumping-animation {
-	-webkit-animation: jump 1s infinite;
-	-moz-animation: jump 1s infinite;
+  animation: jump 1s infinite;
 }
 
 @mixin rotating {
-    -webkit-animation: rotating 2s linear infinite;
+  animation: rotating 2s linear infinite;
 }
 
-/** webkit **/
-
-@-webkit-keyframes rotating {
-    from{
-        -webkit-transform: rotate(0deg);
-    }
-    to{
-        -webkit-transform: rotate(360deg);
-    }
+@keyframes rotating {
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
 }
 
-@-webkit-keyframes pulse {
-	0% {
-		@include transform(scale(1,1));
-	}
+@keyframes pulse {
+  0% {
+    @include transform(scale(1,1));
+  }
 
-	25% {
-		@include transform(scale(0.9,0.9));
-	}
+  25% {
+    @include transform(scale(0.9,0.9));
+  }
 
-	50% {
-		@include transform(scale(0.8,0.8));
-	}	
+  50% {
+    @include transform(scale(0.8,0.8));
+  } 
 
-	75% {
-		@include transform(scale(0.9,0.9));
-	}
+  75% {
+    @include transform(scale(0.9,0.9));
+  }
 
-	100% {
-		@include transform(scale(1,1));
-	}
+  100% {
+    @include transform(scale(1,1));
+  }
 }
 
 
-@-webkit-keyframes jump {
-	0% {
-		@include transform(translate(0,-30%));
-	}
+@keyframes jump {
+  0% {
+    @include transform(translate(0,-30%));
+  }
 
-	25% {
-		@include transform(translate(0,0));
-	}
+  25% {
+    @include transform(translate(0,0));
+  }
 
-	50% {
-		@include transform(translate(0,-30%));
-	}	
+  50% {
+    @include transform(translate(0,-30%));
+  } 
 
-	75% {
-		@include transform(translate(0,0));
-	}
+  75% {
+    @include transform(translate(0,0));
+  }
 
-	100% {
-		@include transform(translate(0,-30%));
-	}
+  100% {
+    @include transform(translate(0,-30%));
+  }
 }
 
-/** moz **/
+@keyframes pulse {
+  0% {
+    @include transform(scale(1,1));
+  }
 
-@-moz-keyframes pulse {
-	0% {
-		@include transform(scale(1,1));
-	}
+  25% {
+    @include transform(scale(0.9,0.9));
+  }
 
-	25% {
-		@include transform(scale(0.9,0.9));
-	}
+  50% {
+    @include transform(scale(0.8,0.8));
+  } 
 
-	50% {
-		@include transform(scale(0.8,0.8));
-	}	
+  75% {
+    @include transform(scale(0.9,0.9));
+  }
 
-	75% {
-		@include transform(scale(0.9,0.9));
-	}
-
-	100% {
-		@include transform(scale(1,1));
-	}
-}
-
-@-moz-keyframes jump {
-	0% {
-		@include transform(translate(0,-30%));
-	}
-
-	25% {
-		@include transform(translate(0,0));
-	}
-
-	50% {
-		@include transform(translate(0,-30%));
-	}	
-
-	75% {
-		@include transform(translate(0,0));
-	}
-
-	100% {
-		@include transform(translate(0,-30%));
-	}
+  100% {
+    @include transform(scale(1,1));
+  }
 }
 
 @mixin poof {
-	-webkit-animation: play 0.3s steps(5) 1;
-	-moz-animation: play 0.3s steps(5) 1;
+  animation: play 0.3s steps(5) 1;
 }
 
-
-@-webkit-keyframes play {
-   from { background-position:  0px 0px; }
-     to { background-position:  0px -250px; }
-}
-
-@-moz-keyframes play {
-   from { background-position:  0px -250px; }
-     to { background-position:  0px 0px; }
+@keyframes play {
+  from { background-position:  0px 0px; }
+  to { background-position:  0px -250px; }
 }
 
 @mixin gentle-fadein($delay:2s, $time:0.4s) {
-	-webkit-animation: fade-in $time linear $delay 1;
-	-webkit-animation-fill-mode: forwards;
-	-moz-animation: fade-in $time linear $delay 1;
-	-moz-animation-fill-mode: forwards;
+  animation: fade-in $time linear $delay 1;
+  animation-fill-mode: forwards;
 }
 
-@-webkit-keyframes fade-in {
-   from { opacity:0; }
-     to { opacity:1; }
-}
-
-@-moz-keyframes fade-in {
-   from { opacity:0; }
-     to { opacity:1; }
+@keyframes fade-in {
+  from { opacity:0; }
+  to { opacity:1; }
 }
