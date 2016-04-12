@@ -10,14 +10,30 @@ import {
 import Playback from 'playback';
 
 const thePlayer = new Playback();
+let currentlyPlayingMarker = null;
 
 function* doPlay(action) {
   try {
     if (action.type === PLAY_AUDIO) {
+      if (thePlayer.isPlaying() && currentlyPlayingMarker) {
+        yield put({
+          type: AUDIO_PLAYBACK_COMPLETE,
+          payload: {
+            marker: currentlyPlayingMarker,
+          },
+        });
+      }
+
+      currentlyPlayingMarker = action.payload.marker;
       yield apply(thePlayer, thePlayer.play, [action.payload.marker.sound]);
       yield put({
         type: AUDIO_PLAYBACK_COMPLETE,
+        payload: {
+          marker: action.payload.marker,
+        },
       });
+
+      currentlyPlayingMarker = null;
     }
 
     if (action.type === PAUSE_AUDIO) {

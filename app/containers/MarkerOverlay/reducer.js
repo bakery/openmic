@@ -38,7 +38,11 @@ function markerOverlayReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_MARKER:
       return state.updateIn(['items'], (items) => {
-        return items.set(action.payload.marker.id,
+        // XX: if there are any markers without sound attached to them,
+        // get rid of them before adding a new marker
+        return items.filter((m) => {
+          return typeof m.get('sound') !== 'undefined';
+        }).set(action.payload.marker.id,
           fromJS(createMarker(action.payload.marker))
         );
       });
@@ -81,15 +85,9 @@ function markerOverlayReducer(state = initialState, action) {
         return marker.set('state', MARKER_STATE.NORMAL);
       });
     case AUDIO_PLAYBACK_COMPLETE:
-      const currentlyPlaying = state.get('items').find(
-        (i) => i.get('state') === MARKER_STATE.PLAYING
-      );
-      if (currentlyPlaying) {
-        return state.updateIn(['items', currentlyPlaying.get('id')], (marker) => {
-          return marker.set('state', MARKER_STATE.NORMAL);
-        });
-      }
-      return state;
+      return state.updateIn(['items', action.payload.marker.id], (marker) => {
+        return marker.set('state', MARKER_STATE.NORMAL);
+      });
     case INIT_MARKER_DELETION:
       return state.updateIn(['items', action.payload.marker.id], (marker) => {
         return marker.set('state', MARKER_STATE.DELETING);

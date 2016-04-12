@@ -2,14 +2,14 @@
 
 import { takeEvery } from 'redux-saga';
 import { put, apply } from 'redux-saga/effects';
-import { ADD_MARKER, AUDIO_RECORDING_UPLOADED, DELETE_MARKER } from 'MarkerOverlay/constants';
+import { AUDIO_RECORDING_UPLOADED, DELETE_MARKER } from 'MarkerOverlay/constants';
 import ProjectApi from 'project.api';
 import _ from 'underscore';
 
 function* doSyncMarkers(action) {
-  if (action.type === ADD_MARKER) {
-    yield apply(ProjectApi, ProjectApi.syncMarker, [action.payload.marker]);
-  }
+  // if (action.type === ADD_MARKER) {
+  //   yield apply(ProjectApi, ProjectApi.syncMarker, [action.payload.marker]);
+  // }
 
   if (action.type === AUDIO_RECORDING_UPLOADED) {
     const markerWithSoundFile = _.extend({}, action.payload.marker, {
@@ -24,5 +24,5 @@ function* doSyncMarkers(action) {
 }
 
 export function* syncMarkers() {
-  yield* takeEvery([ADD_MARKER, AUDIO_RECORDING_UPLOADED, DELETE_MARKER], doSyncMarkers);
+  yield* takeEvery([AUDIO_RECORDING_UPLOADED, DELETE_MARKER], doSyncMarkers);
 }
