@@ -57,6 +57,7 @@ module.exports = require('./webpack.base.babel')({
     postcssSprites({
       stylesheetPath: './app/styles',
       spritePath: './app/images/',
+      retina: true,
       filterBy: (image) => {
         // only sprite buttons
         if (!/buttons/.test(image.url)) {
