@@ -65,7 +65,7 @@ class Marker extends React.Component {
     }
 
     if (this.props.marker.get('state') === MARKER_STATE.DELETING) {
-      return `${base} deleting`;
+      return `${base} normal deleting`;
     }
 
     if (this.props.marker.get('state') === MARKER_STATE.DELETION_CONFIRMED) {
