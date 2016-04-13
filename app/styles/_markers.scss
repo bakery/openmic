@@ -29,7 +29,7 @@
 				position: absolute;
 				@include border-radius(30px);
 				-webkit-perspective: 1000; -moz-perspective: 1000;
-				-webkit-backface-visibility: hidden; -moz-backface-visibility: hidden; 
+				-webkit-backface-visibility: hidden; -moz-backface-visibility: hidden;
 
 				button {
 					border: none;
@@ -39,6 +39,7 @@
 					display: block;
 					width: 50px;
 					height: 50px;
+					background-size: 50px 50px !important;
 				}
 
 				button:focus {
@@ -52,7 +53,7 @@
 				&.normal { 
 
 					@include transform(scale(0.5));
-					background: url('../images/buttons/normal.png') no-repeat;
+					background: url('../images/buttons/normal_@2x.png') no-repeat;
 
 					&:hover {
 						@include smooth;
@@ -62,13 +63,13 @@
 						.play { 
 							display: block;
 							cursor: pointer;
-							background: url('../images/buttons/playactive.png') no-repeat;
+							background: url('../images/buttons/playactive_@2x.png') no-repeat;
 						}
 					}
 
 					&.deleting:hover {
 						cursor: no-drop;
-						background: url('../images/buttons/deleting.png') no-repeat;
+						background: url('../images/buttons/deleting_@2x.png') no-repeat;
 						transition: none;
 						.play {display: none;}
 					}
@@ -101,9 +102,9 @@
 
 					.record {
 						cursor: pointer;				
-						background: url('../images/buttons/record.png') no-repeat;
+						background: url('../images/buttons/record_@2x.png') no-repeat;
 						&:hover {
-							background: url('../images/buttons/recordactive.png') no-repeat;
+							background: url('../images/buttons/recordactive_@2x.png') no-repeat;
 						}
 					}
 				}
@@ -112,9 +113,9 @@
 					@include pulsating-animation(1s);
 					.record {
 						cursor: pointer;
-						background: url('../images/buttons/stop.png') no-repeat;
+						background: url('../images/buttons/stop_@2x.png') no-repeat;
 						&:hover {
-							background: url('../images/buttons/stopactive.png') no-repeat;
+							background: url('../images/buttons/stopactive_@2x.png') no-repeat;
 						}
 					}
 				}
@@ -123,22 +124,22 @@
 					@include jumping-animation;
 					.record {
 						cursor: wait;
-						background: url('../images/buttons/upload.png') no-repeat;
+						background: url('../images/buttons/upload_@2x.png') no-repeat;
 					}
 				}
 
 				&.loading {
 					cursor: wait;
-					background: url('../images/buttons/normal.png') no-repeat;
+					background: url('../images/buttons/normal_@2x.png') no-repeat;
 				}
 
 				&.playing {
 					.pause {
 						display: block;
 						cursor: pointer;
-						background: url('../images/buttons/stop.png') no-repeat;
+						background: url('../images/buttons/stop_@2x.png') no-repeat;
 						&:hover {
-							background: url('../images/buttons/stopactive.png') no-repeat;
+							background: url('../images/buttons/stopactive_@2x.png') no-repeat;
 						}
 					}
 				}
