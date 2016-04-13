@@ -20,7 +20,7 @@ const initialState = fromJS({
   loading: false,
   recording: false,
   maxRecordingTime: 1000 * 15,
-  readOnly: true,
+  readOnly: false,
 });
 
 function projectReducer(state = initialState, action) {

@@ -9,15 +9,28 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import markersSelector from 'markersSelector';
 import projectSelector from 'projectSelector';
-import { addMarker } from './actions';
+import { addMarker, clickOutsideOfMarkerOverlay } from './actions';
 import Marker from 'Marker';
 
 class MarkerOverlay extends React.Component {
+  componentDidMount() {
+    document.querySelector('body').addEventListener('click', this.handleBodyClick);
+  }
+
+  componentWillUnmount() {
+    document.querySelector('body').removeEventListener('click', this.handleBodyClick);
+  }
 
   onAddMarker = (e) => {
     const { readOnly, recording } = this.props;
     if (!readOnly && !recording) {
       this.props.addMarker(e, this.props.project.id);
+    }
+  };
+
+  handleBodyClick = (e) => {
+    if (e.target.className !== 'markers') {
+      this.props.dispatch(clickOutsideOfMarkerOverlay());
     }
   };
 

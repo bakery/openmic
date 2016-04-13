@@ -22,6 +22,7 @@ import {
   MARKER_DELETION_CONFIRMED,
   DELETE_MARKER,
   AUDIO_RECORDING_UPLOADING,
+  CLICKED_OUTSIDE_OFF_MARKER_OVERLAY,
 } from './constants';
 import _ from 'underscore';
 
@@ -32,15 +33,22 @@ const initialState = fromJS({
 
 function markerOverlayReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_MARKER:
 
-      // XX: if there are any markers without sound attached to them,
-      // get rid of them before adding a new marker
+    // XX: if there are any markers without sound attached to them,
+    // get rid of them before adding a new marker
+    case ADD_MARKER:
       return state.updateIn(['items'],
         (items) => items.filter((m) => typeof m.get('sound') !== 'undefined')
           .set(action.payload.marker.id,
             fromJS(createMarker(action.payload.marker))
           )
+      );
+
+    // XX: when clicking outside of marker overlay,
+    // get rid of markers without sounds
+    case CLICKED_OUTSIDE_OFF_MARKER_OVERLAY:
+      return state.updateIn(['items'],
+        (items) => items.filter((m) => typeof m.get('sound') !== 'undefined')
       );
     case ADD_MARKERS:
       return state.withMutations((s) => {

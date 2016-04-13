@@ -12,6 +12,7 @@ import {
   PAUSE_AUDIO,
   INIT_MARKER_DELETION,
   CANCEL_MARKER_DELETION,
+  CLICKED_OUTSIDE_OFF_MARKER_OVERLAY,
 } from './constants';
 
 export function addMarker(marker) {
@@ -77,3 +78,10 @@ export function cancelMarkerDeletion(marker) {
     },
   };
 }
+
+export function clickOutsideOfMarkerOverlay() {
+  return {
+    type: CLICKED_OUTSIDE_OFF_MARKER_OVERLAY,
+  };
+}
+
