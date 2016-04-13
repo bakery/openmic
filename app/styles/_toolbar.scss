@@ -97,18 +97,16 @@
 	}
 }
 
-.busy {
-	.loader {
-		height: 22px;
-		width: 22px;
-		position: absolute;
-		top: 9px;
-		right: 14px;
-		background: {
-			image: url('../images/toolbar-loader.gif');
-			repeat: no-repeat;
-			position: 50% 50%;
-		}
-		opacity: 0.8;
+.loader {
+	height: 22px;
+	width: 22px;
+	position: absolute;
+	top: 9px;
+	right: 14px;
+	background: {
+		image: url('../images/toolbar-loader.gif');
+		repeat: no-repeat;
+		position: 50% 50%;
 	}
+	opacity: 0.8;
 }

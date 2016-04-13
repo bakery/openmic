@@ -1,10 +1,10 @@
-// import Browser from './browser';
-
+/* global MediaRecorder: false */
 
 class AudioRecorder {
   constructor() {
     this.isReady = false;
     this.recordedBlobs = [];
+    this.recording = false;
   }
 
   initAudio(callback) {
@@ -56,9 +56,9 @@ class AudioRecorder {
   }
 
   __record() {
-    console.log('RECORDER : recording');
     if (this.mediaRecorder) {
       this.mediaRecorder.start(10);
+      this.recording = true;
     }
   }
 
@@ -66,17 +66,23 @@ class AudioRecorder {
     return new Promise((resolve) => {
       if (this.mediaRecorder) {
         this.mediaRecorder.stop();
+        this.recording = false;
       }
-      this.saveRecording();
-      resolve();
+
+      resolve(this.saveRecording());
     });
   }
 
   saveRecording() {
-    const blob = new Blob(this.recordedBlobs, { type: 'audio/webm' });
-    const audioPlayer = document.querySelector('audio');
-    audioPlayer.src = window.URL.createObjectURL(blob);
-    audioPlayer.play();
+    const file = new Blob(this.recordedBlobs, { type: 'audio/webm' });
+    return {
+      file,
+      url: window.URL.createObjectURL(file),
+    };
+  }
+
+  isRecording() {
+    return this.recording;
   }
 }
 

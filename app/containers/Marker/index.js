@@ -6,30 +6,74 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
-// import SoundButton from 'SoundButton';
 import RecordButton from 'RecordButton';
-import { requestAudioRecording, stopAudioRecording } from 'MarkerOverlay/actions';
+import PlayButton from 'PlayButton';
+import MarkerDeleteCountdown from 'MarkerDeleteCountdown';
+import {
+  requestAudioRecording,
+  stopAudioRecording,
+  playSound,
+  pauseSound,
+  initMarkerDeletion,
+  cancelMarkerDeletion,
+} from 'MarkerOverlay/actions';
 import { MARKER_STATE } from 'MarkerOverlay/constants';
+import { createSelector } from 'reselect';
+import projectSelector from 'projectSelector';
 
 class Marker extends React.Component {
   onRecord = () => {
-    this.props.record(this.props.id);
+    this.props.record(this.props.marker.toJSON(),
+      this.props.maxRecordingTime);
   };
 
   onStopRecording = () => {
-    this.props.stopRecording(this.props.id);
+    this.props.stopRecording(this.props.marker.toJSON());
+  };
+
+  onPlay = () => {
+    this.props.play(this.props.marker.toJSON());
+  };
+
+  onPause = () => {
+    this.props.pause(this.props.marker.toJSON());
+  };
+
+  getMarkerButton = () => {
+    if (this.props.marker.get('sound')) {
+      return <PlayButton sound={this.props.marker.get('sound')} onPlay={this.onPlay} onPause={this.onPause} />;
+    }
+
+    const markerState = this.props.marker.get('state');
+    const isRecording = markerState === MARKER_STATE.RECORDING;
+    return <RecordButton recording={isRecording} onRecord={this.onRecord} onStopRecording={this.onStopRecording} />;
   };
 
   generateClassName = () => {
     const base = 'marker';
 
-    if (this.props.sound) {
-      return `${base} normal`;
+    if (this.props.marker.get('state') === MARKER_STATE.RECORDING) {
+      return `${base} recording`;
     }
 
-    if (this.props.state === MARKER_STATE.RECORDING) {
-      return `${base} recording`;
+    if (this.props.marker.get('state') === MARKER_STATE.UPLOADING) {
+      return `${base} uploading`;
+    }
+
+    if (this.props.marker.get('state') === MARKER_STATE.PLAYING) {
+      return `${base} playing`;
+    }
+
+    if (this.props.marker.get('state') === MARKER_STATE.DELETING) {
+      return `${base} normal deleting`;
+    }
+
+    if (this.props.marker.get('state') === MARKER_STATE.DELETION_CONFIRMED) {
+      return `${base} poof`;
+    }
+
+    if (this.props.marker.get('sound')) {
+      return `${base} normal`;
     }
 
     return `${base} ready-to-record`;
@@ -38,10 +82,12 @@ class Marker extends React.Component {
   render() {
     console.error('marker props are', this.props);
 
+    const marker = this.props.marker;
+
     const markerWidth = 48;
     const markerHeight = 50;
-    const x = Math.floor(100 * this.props.x);
-    const y = Math.floor(100 * this.props.y);
+    const x = Math.floor(100 * marker.get('x'));
+    const y = Math.floor(100 * marker.get('y'));
     const styles = {
       left: `${x}%`,
       top: `${y}%`,
@@ -50,12 +96,49 @@ class Marker extends React.Component {
       width: markerWidth,
       height: markerHeight,
     };
-    const isRecording = this.props.state === MARKER_STATE.RECORDING;
+
+    const divProps = {
+      className: this.generateClassName(),
+      style: styles,
+      onMouseDown: (e) => {
+        // if this is not a left click, exit
+        if (e.button !== 0) {
+          return;
+        }
+
+        if (this.props.readOnly) {
+          return;
+        }
+
+        console.error('mouse down', this.props);
+        if (this.props.marker.get('state') === MARKER_STATE.NORMAL) {
+          this.deletionTimerId = setTimeout(() => {
+            this.props.initMarkerDeletion(this.props.marker.toJSON());
+          }, 1000);
+        }
+      },
+
+      onMouseUp: () => {
+        if (this.deletionTimerId) {
+          clearTimeout(this.deletionTimerId);
+        }
+
+        if (this.props.marker.get('state') === MARKER_STATE.DELETING) {
+          this.props.cancelMarkerDeletion(this.props.marker.toJSON());
+        }
+      },
+
+      onMouseOut: () => {
+        if (this.props.marker.get('state') === MARKER_STATE.DELETING) {
+          this.props.cancelMarkerDeletion(this.props.marker.toJSON());
+        }
+      },
+    };
 
     return (
-      <div onClick={this.onClick} className={this.generateClassName()} style={styles}>
-        <RecordButton recording={isRecording} onRecord={this.onRecord} onStopRecording={this.onStopRecording}/>
-        <div className="countdown"></div>
+      <div { ...divProps }>
+        {this.getMarkerButton()}
+        {this.props.marker.get('state') === MARKER_STATE.DELETING ? <MarkerDeleteCountdown /> : null}
       </div>
     );
   }
@@ -64,17 +147,22 @@ class Marker extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    record: (markerId) => dispatch(requestAudioRecording(markerId)),
-    stopRecording: (markerId) => dispatch(stopAudioRecording(markerId)),
+    record: (marker, maxRecordingTime) => dispatch(requestAudioRecording(marker, maxRecordingTime)),
+    stopRecording: (marker) => dispatch(stopAudioRecording(marker)),
+    play: (marker) => dispatch(playSound(marker)),
+    pause: (marker) => dispatch(pauseSound(marker)),
+    initMarkerDeletion: (marker) => dispatch(initMarkerDeletion(marker)),
+    cancelMarkerDeletion: (marker) => dispatch(cancelMarkerDeletion(marker)),
   };
 }
 
-export default connect(createSelector(
-  (state, props) => {
-    console.error('first selector', state.get('markers').get('items'), props);
-    return state.get('markers').get('items').get(props.id);
-  },
-  (marker) => ({
-    state: marker.get('state'),
-  })
-), mapDispatchToProps)(Marker);
+function selectProjectAttributes(project) {
+  return {
+    maxRecordingTime: project.get('maxRecordingTime'),
+  };
+}
+
+export default connect(
+  createSelector(projectSelector, selectProjectAttributes),
+  mapDispatchToProps
+)(Marker);

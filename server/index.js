@@ -5,6 +5,7 @@ const logger = require('./logger');
 const ngrok = require('ngrok');
 
 const frontend = require('./middlewares/frontendMiddleware');
+const aws = require('./middlewares/awsMiddleware');
 const isDev = process.env.NODE_ENV !== 'production';
 
 const app = express();
@@ -17,6 +18,7 @@ const webpackConfig = isDev
   ? require('../internals/webpack/webpack.dev.babel')
   : require('../internals/webpack/webpack.prod.babel');
 
+app.use('/aws/sign', aws);
 app.use(frontend(webpackConfig));
 
 const port = process.env.PORT || 3000;

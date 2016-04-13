@@ -1,3 +1,5 @@
+/* eslint-disable react/prefer-stateless-function */
+
 /**
 *
 * RecordButton
@@ -5,7 +7,6 @@
 */
 
 import React from 'react';
-
 
 class RecordButton extends React.Component {
   render() {
@@ -17,6 +18,7 @@ class RecordButton extends React.Component {
         this.props.onRecord.call(this);
       }
     };
+
     return (
       <div className="button-container">
         <button onClick={ handleClick } className="record"></button>

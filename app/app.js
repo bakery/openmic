@@ -1,3 +1,5 @@
+/* global PARSE_API_ID:false, PARSE_API_KEY:false */
+
 /**
  * app.js
  *
@@ -48,6 +50,10 @@ const rootRoute = {
   component: App,
   childRoutes: createRoutes(store),
 };
+
+// Init Parse
+import Parse from 'parse';
+Parse.initialize(PARSE_API_ID, PARSE_API_KEY);
 
 ReactDOM.render(
   <Provider store={store}>

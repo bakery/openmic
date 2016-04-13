@@ -5,6 +5,18 @@
 // See http://blog.mxstbr.com/2016/01/react-apps-with-pages for more information
 // about the require.ensure code splitting business
 
+import Browser from 'browser';
+
+const browserNotSupportedPath = '/oops';
+
+const checkBrowser = function requireAuth(nextState, replace) {
+  if (nextState.location.pathname !== browserNotSupportedPath) {
+    if (!Browser.isBrowserSupported()) {
+      replace({ pathname: browserNotSupportedPath });
+    }
+  }
+};
+
 export default function createRoutes(store) { // eslint-disable-line
   return [
     {
@@ -15,20 +27,26 @@ export default function createRoutes(store) { // eslint-disable-line
         }, 'HomePage');
       },
     }, {
-      path: '/editor',
+      path: '/p/:id',
       getComponent: function get(location, cb) {
         require.ensure([], (require) => {
-          cb(null, require('Editor').default);
-        }, 'Editor');
+          cb(null, require('Project').default);
+        }, 'Project');
+      },
+    }, {
+      path: browserNotSupportedPath,
+      getComponent: function get(location, cb) {
+        require.ensure([], (require) => {
+          cb(null, require('BrowserNotSupported').default);
+        }, 'BrowserNotSupported');
       },
     }, {
       path: '*',
-
       getComponent: function get(location, cb) {
         require.ensure([], (require) => {
           cb(null, require('NotFoundPage').default);
         }, 'NotFoundPage');
       },
     },
-  ];
+  ].map((route) => Object.assign(route, { onEnter: checkBrowser }));
 }
