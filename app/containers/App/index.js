@@ -14,7 +14,6 @@ function App(props) {
       { props.children }
       <footer>
         <ul>
-          <li><a target="_blank" href="/#/feedback/">Feedback</a></li>
           <li><a href="mailto:hi@thebakery.io">Say hi</a></li>
           <li><a target="_blank" href="http://thebakery.io">Made by The Bakery</a></li>
           <li>&copy; {new Date().getFullYear()}</li>
