@@ -6,7 +6,6 @@
 
 import React from 'react';
 
-
 function OctoCat(props) {
   return (
     <a target="_blank" href={props.url} className="github-corner">
