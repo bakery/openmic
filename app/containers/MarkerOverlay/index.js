@@ -55,8 +55,12 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     addMarker: (e, projectId) => {
+      const scrollTop = Math.max(
+        document.querySelector('html').scrollTop,
+        document.querySelector('body').scrollTop,
+      );
       const relX = e.pageX - e.target.getBoundingClientRect().left;
-      const relY = e.pageY - e.target.getBoundingClientRect().top;
+      const relY = (e.pageY - scrollTop) - e.target.getBoundingClientRect().top;
 
       dispatch(addMarker({
         projectId,
