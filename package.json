@@ -131,7 +131,8 @@
     "test:firefox": "npm run test -- --browsers Firefox",
     "test:safari": "npm run test -- --browsers Safari",
     "test:ie": "npm run test -- --browsers IE",
-    "coveralls": "cat ./coverage/lcov/lcov.info | coveralls"
+    "coveralls": "cat ./coverage/lcov/lcov.info | coveralls",
+    "postinstall": "if [ \"$NODE_ENV\" = \"production\" ]; then npm run build; fi",
   },
   "pre-commit": "lint:staged",
   "author": "Max Stoiber",
