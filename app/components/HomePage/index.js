@@ -6,10 +6,12 @@
 
 import React from 'react';
 import ImageSelector from 'ImageSelector';
+import OctoCat from 'OctoCat';
 
 export function HomePage() {
   return (
     <div className="editor">
+      <OctoCat url="https://github.com/thebakeryio/openmic" />
       <div className="permission-helper-wrapper"></div>
       <div className="branding">
         <a href="/"><h1>openmic</h1></a>
