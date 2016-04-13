@@ -6,11 +6,11 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
   IMAGE_UPLOAD_REQUESTED,
   IMAGE_UPLOAD_FAILED,
   IMAGE_UPLOAD_COMPLETE,
   UPLOADER_STATUS,
+  RESET_IMAGE_SELECTOR,
 } from './constants';
 
 const initialState = fromJS({
@@ -19,8 +19,8 @@ const initialState = fromJS({
 
 function imageSelectorReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case RESET_IMAGE_SELECTOR:
+      return state.updateIn(['status'], () => UPLOADER_STATUS.IDLE);
     case IMAGE_UPLOAD_REQUESTED:
       console.error('reducer got: IMAGE_UPLOAD_REQUESTED', action);
       return state.updateIn(['status'], () => UPLOADER_STATUS.UPLOADING);
