@@ -15,7 +15,8 @@ import Marker from 'Marker';
 class MarkerOverlay extends React.Component {
 
   onAddMarker = (e) => {
-    if (!this.props.readOnly) {
+    const { readOnly, recording } = this.props;
+    if (!readOnly && !recording) {
       this.props.addMarker(e, this.props.project.id);
     }
   };
@@ -58,6 +59,7 @@ function selectMarkersAndProject(markers, project) {
   return {
     markers: markers.get('items'),
     project: project.get('project'),
+    recording: project.get('recording'),
   };
 }
 
