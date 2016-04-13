@@ -29,7 +29,7 @@ class MarkerOverlay extends React.Component {
   };
 
   handleBodyClick = (e) => {
-    if (e.target.className !== 'markers') {
+    if (['markers', 'record'].indexOf(e.target.className) === -1) {
       this.props.dispatch(clickOutsideOfMarkerOverlay());
     }
   };
