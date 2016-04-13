@@ -16,8 +16,6 @@ class AudioRecorder {
       this.onGotStream(stream);
       callback.call(this, null);
     }, (e) => {
-      console.log('no functiona');
-      console.log(e);
       callback.call(this, e);
     });
   }

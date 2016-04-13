@@ -22,13 +22,10 @@ function imageSelectorReducer(state = initialState, action) {
     case RESET_IMAGE_SELECTOR:
       return state.updateIn(['status'], () => UPLOADER_STATUS.IDLE);
     case IMAGE_UPLOAD_REQUESTED:
-      console.error('reducer got: IMAGE_UPLOAD_REQUESTED', action);
       return state.updateIn(['status'], () => UPLOADER_STATUS.UPLOADING);
     case IMAGE_UPLOAD_FAILED:
-      console.error('reducer got: IMAGE_UPLOAD_FAILED', action);
       return state.updateIn(['status'], () => UPLOADER_STATUS.FAILED);
     case IMAGE_UPLOAD_COMPLETE:
-      console.error('reducer got: IMAGE_UPLOAD_COMPLETE', action);
       return state.updateIn(['status'], () => UPLOADER_STATUS.COMPLETE);
     default:
       return state;

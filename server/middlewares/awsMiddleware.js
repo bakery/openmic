@@ -15,18 +15,14 @@ const s3client = new s3BrowserDirectUpload(s3clientOptions);
 const middleware = (req, res) => {
   const urlParts = url.parse(req.url, true);
   const query = urlParts.query;
-
-  console.error('query is', query);
-
   const uploadPostFormOptions = {
     key: query.file,
     bucket: process.env.S3_BUCKET_NAME,
   };
 
-  s3client.uploadPostForm(uploadPostFormOptions, (err, params) => {
-    res.send(params);
-    console.log(params);
-  });
+  s3client.uploadPostForm(uploadPostFormOptions,
+    (err, params) => res.send(params)
+  );
 };
 
 module.exports = middleware;

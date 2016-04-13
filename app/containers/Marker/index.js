@@ -80,10 +80,7 @@ class Marker extends React.Component {
   };
 
   render() {
-    console.error('marker props are', this.props);
-
     const marker = this.props.marker;
-
     const markerWidth = 48;
     const markerHeight = 50;
     const x = Math.floor(100 * marker.get('x'));
@@ -110,7 +107,6 @@ class Marker extends React.Component {
           return;
         }
 
-        console.error('mouse down', this.props);
         if (this.props.marker.get('state') === MARKER_STATE.NORMAL) {
           this.deletionTimerId = setTimeout(() => {
             this.props.initMarkerDeletion(this.props.marker.toJSON());

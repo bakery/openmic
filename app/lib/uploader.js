@@ -9,7 +9,6 @@ export default {
   upload(file, fileName) {
     return new Promise((resolve, reject) => {
       getRequestData(fileName).then((data) => {
-        console.error('got data for request', data);
         const formData = new FormData();
         formData.append('acl', data.params.acl);
         formData.append('key', data.params.key);
@@ -29,8 +28,6 @@ export default {
           } else {
             reject(d);
           }
-
-          console.error(d);
         });
       });
     });

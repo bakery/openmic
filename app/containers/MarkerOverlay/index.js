@@ -21,7 +21,6 @@ class MarkerOverlay extends React.Component {
   };
 
   render() {
-    console.error('markers are', this.props.markers);
     return (
       <div className="markers-container">
         <div className="marker-wrapper" onClick={this.onAddMarker}>
@@ -44,7 +43,6 @@ function mapDispatchToProps(dispatch) {
     addMarker: (e, projectId) => {
       const relX = e.pageX - e.target.getBoundingClientRect().left;
       const relY = e.pageY - e.target.getBoundingClientRect().top;
-      console.log('position', relX, relY);
 
       dispatch(addMarker({
         projectId,

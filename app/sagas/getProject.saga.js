@@ -13,7 +13,6 @@ function* doGetProject(action) {
   const parts = rx.exec(action.payload.pathname);
 
   if (parts) {
-    console.error('@@getting project', action);
     yield put({
       type: START_LOADING_PROJECT,
     });

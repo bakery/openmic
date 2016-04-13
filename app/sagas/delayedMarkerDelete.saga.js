@@ -46,7 +46,6 @@ function* manageMarkerDeletion(action) {
   }
 
   if (action.type === CANCEL_MARKER_DELETION) {
-    console.error('@@@ got CANCEL_MARKER_DELETION');
     if (__currentDeletionTask) {
       yield cancel(__currentDeletionTask);
     }

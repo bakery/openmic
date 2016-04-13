@@ -17,7 +17,6 @@ import MarkerOverlay from 'MarkerOverlay';
 class Project extends React.Component {
 
   onImageLoaded = () => {
-    console.error('image loaded');
     this.props.reportProjectImageLoaded(this.props.project);
   };
 

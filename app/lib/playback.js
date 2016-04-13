@@ -7,7 +7,6 @@ class Playback {
   play(sound) {
     return new Promise((resolve) => {
       const onEnded = () => {
-        console.error('Playback:ended');
         resolve();
         this.audio.removeEventListener('ended', onEnded);
         this.playing = false;

@@ -9,10 +9,7 @@ import {
 } from 'MarkerOverlay/constants';
 import uploader from 'uploader';
 
-// TODO: replace this with an actual file upload
 function* doUploadAudio(action) {
-  console.error('uploading sound', action);
-
   yield put({
     type: AUDIO_RECORDING_UPLOADING,
     payload: {
@@ -20,10 +17,10 @@ function* doUploadAudio(action) {
     },
   });
 
-  const uploadedFile = yield call((data) => {
-    console.error('running saga', data);
-    return uploader.upload(action.payload.file, `${new Date().getTime()}.webm`);
-  }, action.payload);
+  const uploadedFile = yield call(
+    () => uploader.upload(action.payload.file, `${new Date().getTime()}.webm`),
+    action.payload
+  );
 
   yield put({
     type: AUDIO_RECORDING_UPLOADED,

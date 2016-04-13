@@ -16,7 +16,6 @@ import { UPLOADER_STATUS } from './constants';
 
 class ImageSelector extends React.Component {
   render() {
-    console.error('status is', this.props.status);
     const loadingOrDone = [UPLOADER_STATUS.UPLOADING, UPLOADER_STATUS.COMPLETE];
     if (loadingOrDone.indexOf(this.props.status) !== -1) {
       return (
@@ -42,7 +41,6 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     onUploadFile: (files) => {
-      console.error('uploading', files);
       dispatch(uploadImage(files[0]));
     },
   };
