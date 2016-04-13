@@ -93,7 +93,6 @@ class Marker extends React.Component {
       width: markerWidth,
       height: markerHeight,
     };
-
     const divProps = {
       className: this.generateClassName(),
       style: styles,
@@ -119,12 +118,6 @@ class Marker extends React.Component {
           clearTimeout(this.deletionTimerId);
         }
 
-        if (this.props.marker.get('state') === MARKER_STATE.DELETING) {
-          this.props.cancelMarkerDeletion(this.props.marker.toJSON());
-        }
-      },
-
-      onMouseOut: () => {
         if (this.props.marker.get('state') === MARKER_STATE.DELETING) {
           this.props.cancelMarkerDeletion(this.props.marker.toJSON());
         }
