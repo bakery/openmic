@@ -34,6 +34,10 @@ header {
 			repeat: no-repeat;
 			position: 50% 50%;
 		}
+
+		@media screen and (max-width: 320px) {
+			display: none;
+  	}
 	}
 
 	.tagline {
@@ -42,6 +46,9 @@ header {
 		position: relative;
 		top: -50px;
 		left: -11px;
+		@media screen and (max-width: 320px) {
+			display: none;
+  	}
 	}
 }
 
