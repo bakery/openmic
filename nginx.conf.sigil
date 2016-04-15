@@ -6,12 +6,27 @@ upstream {{ .APP }} {
 server {
   listen      [::]:80;
   listen      80;
-  server_name openmic.io;
+  server_name {{ .NOSSL_SERVER_NAME }};
+
   access_log  /var/log/nginx/{{ .APP }}-access.log;
   error_log   /var/log/nginx/{{ .APP }}-error.log;
 
-  # set a custom header for requests
-  add_header X-Served-By www-ec2-01;
+  return 301 https://$host:443$request_uri;
+}
+
+server {
+  listen      [::]:443 ssl spdy;
+  listen      443 ssl spdy;
+  {{ if .SSL_SERVER_NAME }}server_name {{ .SSL_SERVER_NAME }}; {{ end }}
+
+  access_log  /var/log/nginx/{{ .APP }}-access.log;
+  error_log   /var/log/nginx/{{ .APP }}-error.log;
+
+  ssl_certificate     {{ .APP_SSL_PATH }}/server.crt;
+  ssl_certificate_key {{ .APP_SSL_PATH }}/server.key;
+
+  keepalive_timeout   70;
+  add_header          Alternate-Protocol  443:npn-spdy/2;
 
   location    / {
     proxy_pass  http://{{ .APP }};
