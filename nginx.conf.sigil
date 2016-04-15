@@ -6,7 +6,7 @@ upstream {{ .APP }} {
 server {
   listen      [::]:80;
   listen      80;
-  server_name 162.243.199.60;
+  server_name openmic.io;
   access_log  /var/log/nginx/{{ .APP }}-access.log;
   error_log   /var/log/nginx/{{ .APP }}-error.log;
 
