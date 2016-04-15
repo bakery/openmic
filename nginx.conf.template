@@ -1,7 +1,0 @@
-server {
-  listen      [::]:80;
-  listen      80;
-
-  # set a custom header for requests
-  add_header X-Served-By Your Mom;
-}
