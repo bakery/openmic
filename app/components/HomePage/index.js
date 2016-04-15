@@ -16,7 +16,7 @@ export function HomePage() {
       <div className="branding">
         <a href="/"><h1>openmic</h1></a>
         <div className="logo"></div>
-        <h4 className="tagline">Give voice to images. [Digital Ocean]</h4>
+        <h4 className="tagline">Give voice to images</h4>
       </div>
       <div className="landing-container">
         <ImageSelector />
