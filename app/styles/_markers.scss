@@ -94,7 +94,6 @@
 				&.discrete {
 					@include transform(scale(0.5));
 					cursor: default;
-					@extend .buttons-normal;
 				}
 
 				&.ready-to-record {
